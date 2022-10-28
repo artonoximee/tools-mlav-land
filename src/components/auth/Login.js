@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useAuth } from "../../contexts/AuthContext";
 
+import { BoxArrowInRight } from 'react-bootstrap-icons';
+
 function Login() {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const { logIn } = useAuth();
@@ -25,10 +27,10 @@ function Login() {
   return (
     <div className="row justify-content-center top-margin">
       <div className="col-lg-3 col-md-12">
+        <h1 className="text-center"><span class="badge rounded-pill text-bg-primary">🛠️</span></h1>
+        <h3 className="mb-5 text-center">Connexion</h3>
 
-        <h3 className="mb-5">Connexion</h3>
-
-        { error && <div className="alert alert-danger mt-1">{ error }</div> }
+        { error && <div className="alert alert-warning mt-1 border-warning">💣 { error }</div> }
 
         <label htmlFor="email" className="form-label mt-1"><i className="fa-solid fa-envelope text-primary"></i> Email</label>
         <input 
@@ -54,14 +56,6 @@ function Login() {
         <div className="d-grid gap-2">
           <button className={ `btn mt-5 btn-outline-primary` } onClick={ handleSubmit(submitLogIn) } disabled={ loading } type="submit">Connexion</button>
         </div>
-
-        <div className="d-grid gap-2">
-          <Link to="/forgot-password" className="text-center text-secondary mt-3">Mot de passe oublié ?</Link>
-        </div>
-
-        {/* <div className="d-grid gap-2">
-          <Link to="/signup" className="text-center text-secondary mt-3">Pas encore de compte ? Créez-en un ici</Link>
-        </div> */}
 
         <div className=" bottom-margin"></div>
       </div>
