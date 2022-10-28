@@ -1,15 +1,15 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import PrivateRoute from "./components/auth/PrivateRoute";
+import PrivateRoute from "./components/Auth/PrivateRoute";
 import { AuthProvider } from "./contexts/AuthContext";
 
 import "./App.css";
 
-import Login from "./components/auth/Login";
+import Login from "./components/Auth/Login";
 import Dashboard from "./components/Dashboard";
-import Quotes from "./components/Quotes";
-import Invoices from "./components/Invoices";
-import Counter from "./components/Counter";
+import Quotes from "./components/Quotes/List";
+import Invoices from "./components/Invoices/List";
+import Counter from "./components/Counters/List";
 
 function App() {
   return (

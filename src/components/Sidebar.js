@@ -5,9 +5,11 @@ import "./Sidebar.css";
 
 function Sidebar() {
   const [error, setError] = useState("");
-  const { logOut } = useAuth();
+  const { logOut, currentUser } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+
+  console.log(currentUser.uid)
 
   async function handleLogOut() {
     setError("")
@@ -23,9 +25,9 @@ function Sidebar() {
     <nav id="sidebarMenu" className="col-md-3 col-lg-2 d-md-block text-bg-dark sidebar collapse fixed-top">
     
       <Link to="/dashboard" className="d-flex align-items-center mt-4 mb-3 mb-md-0 me-md-auto text-white text-decoration-none fs-4">
-        <span class="badge rounded-pill text-bg-primary">🛠️</span>
+        <span className="badge rounded-pill text-bg-primary">🛠️</span>
         <span className="ps-2 fw-bold">mlavTools</span>
-        <sup><span class="badge rounded-pill text-bg-danger sup">v0.1.0</span></sup>
+        <sup><span className="badge rounded-pill text-bg-danger sup">v0.1.0</span></sup>
       </Link>
 
       <hr />
@@ -62,7 +64,7 @@ function Sidebar() {
       <ul className="nav nav-pills flex-column">
         <li className="nav-item">
           <Link onClick={handleLogOut} className="nav-link text-white">
-            🚶
+            🚪
             Déconnexion
           </Link>
         </li>
