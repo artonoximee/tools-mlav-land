@@ -9,6 +9,7 @@ import Login from "./components/Auth/Login";
 import Dashboard from "./components/Dashboard";
 import Quotes from "./components/Quotes/List";
 import Invoices from "./components/Invoices/List";
+import CreateInvoice from "./components/Invoices/Create";
 import Counter from "./components/Counters/List";
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
             <Route path="/dashboard" element={ <PrivateRoute><Dashboard /></PrivateRoute> } />
             <Route path="/quotes" element={ <PrivateRoute><Quotes /></PrivateRoute> } />
             <Route path="/invoices" element={ <PrivateRoute><Invoices /></PrivateRoute> } />
+            <Route path="/invoices/new" element={ <PrivateRoute><CreateInvoice /></PrivateRoute> } />
             <Route path="/counter" element={ <PrivateRoute><Counter /></PrivateRoute> } />
             <Route path="*" element={ <h1>Error</h1> } />
           </Routes>
