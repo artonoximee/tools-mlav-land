@@ -5,11 +5,9 @@ import "./Sidebar.css";
 
 function Sidebar() {
   const [error, setError] = useState("");
-  const { logOut, currentUser } = useAuth();
+  const { logOut } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-
-  console.log(currentUser.uid)
 
   async function handleLogOut() {
     setError("")
