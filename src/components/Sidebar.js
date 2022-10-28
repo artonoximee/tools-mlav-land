@@ -39,7 +39,7 @@ function Sidebar() {
         </li>
         <li>
           <Link to="/quotes" className={`nav-link ${ location.pathname.includes("quotes") ? "active" : "text-white" }`}>
-            🗄️
+            💼
             Devis
           </Link>
         </li>
