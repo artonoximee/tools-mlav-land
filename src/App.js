@@ -13,13 +13,11 @@ function App() {
     <AuthProvider>
       <Router>
         <div className="container-fluid text-bg-dark">
-          <div className="container">
-            <Routes>
-              <Route exact path="/" element={ <Login /> } />
-              <Route path="/dashboard" element={ <PrivateRoute><Dashboard /></PrivateRoute> } />
-              <Route path="*" element={ <h1>Error</h1> } />
-            </Routes>
-          </div>
+          <Routes>
+            <Route exact path="/" element={ <Login /> } />
+            <Route path="/dashboard" element={ <PrivateRoute><Dashboard /></PrivateRoute> } />
+            <Route path="*" element={ <h1>Error</h1> } />
+          </Routes>
         </div>
       </Router>
     </AuthProvider>
