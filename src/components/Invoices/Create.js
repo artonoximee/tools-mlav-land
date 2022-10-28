@@ -16,20 +16,21 @@ function Create() {
 
   function Product(props) {
     const index = props.index
-    const productId = "productid" + index
-    const productPrice = "product-price-" + index
-    const productQuantity = "product-quantity-" + index
+    const productName = "productName-" + index
+    const productPrice = "productPrice-" + index
+    const productQuantity = "productQuantity-" + index
     return (
       <>
         { index > 0 ? <hr /> : null }
-        <label htmlFor={ productId } className={`form-label`}>Dénomination</label>
+        <label htmlFor={ productName } className={`form-label`}>Dénomination</label>
         <input 
           type="text"
-          id={ productId }
-          className={ `form-control text-bg-dark` }
+          id={ productName }
+          className={ `form-control text-bg-dark ${ errors[productName] && "is-invalid border-danger" }` }
           placeholder="Truc à facturer"
-          { ...register(productId, { required: true }) }
+          { ...register(productName, { required: true }) }
         />
+        { errors[productName] && <div className="form-text text-danger">Veuillez renseigner une dénomination</div> }
         <div className="row">
           <div className="col-6">
             <label htmlFor="element" className="form-label mt-2">Prix unitaire</label>
@@ -38,21 +39,26 @@ function Create() {
               <input 
                 type="text"
                 id={ productPrice }
-                className={ `form-control text-bg-dark` }
+                className={ `form-control text-bg-dark ${ errors[productPrice] && "is-invalid border-danger" }` }
                 placeholder="500,00"
                 { ...register(productPrice, { required: true }) }
               />
             </div>
+            { errors[productPrice] && <div className="form-text text-danger">Veuillez renseigner un prix</div> }
           </div>
           <div className="col-6">
             <label htmlFor="element" className="form-label mt-2">Quantité</label>
-            <input 
-              type="text"
-              id={ productQuantity }
-              className={ `form-control text-bg-dark` }
-              placeholder="5"
-              { ...register(productQuantity, { required: true }) }
-            />
+            <div className="input-group">
+              <span className="input-group-text text-bg-dark">u.</span>
+              <input 
+                type="text"
+                id={ productQuantity }
+                className={ `form-control text-bg-dark ${ errors[productQuantity] && "is-invalid border-danger" }` }
+                placeholder="5"
+                { ...register(productQuantity, { required: true }) }
+              />
+            </div>
+            { errors[productQuantity] && <div className="form-text text-danger">Veuillez renseigner une quantité</div> }
           </div>
         </div>
       </>
@@ -69,10 +75,10 @@ function Create() {
   }
 
   async function createTag(data) {
-    const uid = v4();
+    const invoiceUid = v4();
     const createdAt = new Date().toISOString();
-    await setDoc(doc(db, "invoices", uid), {
-      id: uid, 
+    await setDoc(doc(db, "invoices", invoiceUid), {
+      id: invoiceUid, 
       userId: currentUser.uid,
       name: data.name,
       representative: data.representative,
@@ -83,11 +89,16 @@ function Create() {
       telephone: data.telephone,
       createdAt: createdAt
     });
-    console.log(productsCount)
+    for (let i = 0; i < productsCount; i++) {
+      const productUid = v4()
+      await setDoc(doc(db, `invoices/${invoiceUid}/elements`, productUid), {
+        id: productUid,
+        name: data["productName-" + i],
+        price: data["productPrice-" + i],
+        quantity: data["productQuantity-" + i]
+      })
+    }
     setProductsCount(1)
-    // await setDoc(doc(db, `invoices/${uid}/elements`, "element1"), {
-    //   name: data.element
-    // })
     reset({name: "", representative: "", address: "", postcode: "", city: "", email: "", telephone: ""})
   }
 
@@ -112,7 +123,7 @@ function Create() {
                 />
                 { errors.name && <div className="form-text text-danger">Veuillez renseigner un nom d'entité</div> }
 
-                <label htmlFor="representative" className="form-label mt-4">Représentant·e de l'entité</label>
+                <label htmlFor="representative" className="form-label mt-2">Représentant·e de l'entité</label>
                 <input 
                   type="text"
                   id="representative"
@@ -122,7 +133,7 @@ function Create() {
                 />
                 { errors.representative && <div className="form-text text-danger">Veuillez renseigner un·e représentant·e</div> }
 
-                <label htmlFor="address" className="form-label mt-4">N° et rue</label>
+                <label htmlFor="address" className="form-label mt-2">N° et rue</label>
                 <input 
                   type="text"
                   id="address"
@@ -134,7 +145,7 @@ function Create() {
                 
                 <div className="row">
                   <div className="col-3">
-                    <label htmlFor="postcode" className="form-label mt-4">Code postal</label>
+                    <label htmlFor="postcode" className="form-label mt-2">Code postal</label>
                     <input 
                       type="text"
                       id="postcode"
@@ -145,7 +156,7 @@ function Create() {
                     { errors.postcode && <div className="form-text text-danger">Veuillez renseigner un code postal</div> }
                   </div>
                   <div className="col-9">
-                    <label htmlFor="city" className="form-label mt-4">Ville</label>
+                    <label htmlFor="city" className="form-label mt-2">Ville</label>
                     <input 
                       type="text"
                       id="city"
@@ -159,7 +170,7 @@ function Create() {
 
                 <div className="row">
                   <div className="col-6">
-                    <label htmlFor="email" className="form-label mt-4">Email</label>
+                    <label htmlFor="email" className="form-label mt-2">Email</label>
                     <input 
                       type="text"
                       id="email"
@@ -170,7 +181,7 @@ function Create() {
                     { errors.email && <div className="form-text text-danger">Veuillez renseigner une adresse email</div> }
                   </div>
                   <div className="col-6">
-                    <label htmlFor="telephone" className="form-label mt-4">Téléphone</label>
+                    <label htmlFor="telephone" className="form-label mt-2">Téléphone</label>
                     <input 
                       type="text"
                       id="telephone"
