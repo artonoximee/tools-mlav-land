@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import { useForm } from "react-hook-form";
 import { db } from "../../config/firebase";
@@ -10,6 +10,63 @@ import Sidebar from "./../Sidebar";
 function Create() {
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
   const { currentUser } = useAuth();
+
+  const [productsCount, setProductsCount] = useState(1);
+  const products = []
+
+  function Product(props) {
+    const index = props.index
+    const productId = "productid" + index
+    const productPrice = "product-price-" + index
+    const productQuantity = "product-quantity-" + index
+    return (
+      <>
+        { index > 0 ? <hr /> : null }
+        <label htmlFor={ productId } className={`form-label`}>Dénomination</label>
+        <input 
+          type="text"
+          id={ productId }
+          className={ `form-control text-bg-dark` }
+          placeholder="Truc à facturer"
+          { ...register(productId, { required: true }) }
+        />
+        <div className="row">
+          <div className="col-6">
+            <label htmlFor="element" className="form-label mt-2">Prix unitaire</label>
+            <div className="input-group">
+              <span className="input-group-text text-bg-dark">€</span>
+              <input 
+                type="text"
+                id={ productPrice }
+                className={ `form-control text-bg-dark` }
+                placeholder="500,00"
+                { ...register(productPrice, { required: true }) }
+              />
+            </div>
+          </div>
+          <div className="col-6">
+            <label htmlFor="element" className="form-label mt-2">Quantité</label>
+            <input 
+              type="text"
+              id={ productQuantity }
+              className={ `form-control text-bg-dark` }
+              placeholder="5"
+              { ...register(productQuantity, { required: true }) }
+            />
+          </div>
+        </div>
+      </>
+    )
+  } 
+
+  function addProduct(e) {
+    e.preventDefault()
+    setProductsCount(prev => prev + 1)
+  }
+
+  for (let i=0; i < productsCount; i++) {
+    products.push(<Product key={ i } index={ i } />);
+  }
 
   async function createTag(data) {
     const uid = v4();
@@ -26,7 +83,12 @@ function Create() {
       telephone: data.telephone,
       createdAt: createdAt
     });
-    reset({name: ""})
+    console.log(productsCount)
+    setProductsCount(1)
+    // await setDoc(doc(db, `invoices/${uid}/elements`, "element1"), {
+    //   name: data.element
+    // })
+    reset({name: "", representative: "", address: "", postcode: "", city: "", email: "", telephone: ""})
   }
 
   return (
@@ -39,6 +101,7 @@ function Create() {
               <hr />
               <form>
                 <h4 className="mt-5 mb-3">Identité client</h4>
+                <hr />
                 <label htmlFor="name" className="form-label">Nom de l'entité</label>
                 <input 
                   type="text"
@@ -120,7 +183,11 @@ function Create() {
                 </div>
 
                 <h4 className="mt-5 mb-3">Éléments à facturer</h4>
-                
+                <hr />
+
+                { products }
+
+                <button className="btn btn-outline-secondary mt-4 w-100" onClick={ addProduct } > Ajouter un élément </button>
 
                 <button className="btn btn-primary w-100 mt-5 mb-5" onClick={ handleSubmit(createTag) } type="submit">Créer une nouvelle facture</button>
               </form>
