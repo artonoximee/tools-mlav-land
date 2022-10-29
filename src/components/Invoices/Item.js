@@ -9,7 +9,7 @@ function Item(props) {
   const year = createdAt[2] + createdAt[3]
 
   return (
-    <Link to="#" className="list-group-item list-group-item-action text-bg-dark border-secondary p-3">
+    <Link to={`/invoices/${id}`} className="list-group-item list-group-item-action text-bg-dark border-secondary p-3">
       <div className="d-flex w-100 justify-content-between">
         <h5>{ name }</h5>
         <small className="badge text-bg-primary h-50">{ day }/{ month }/{ year }</small>
