@@ -63,7 +63,7 @@ function Show() {
                 invoice &&
                 <>
                   {/* <h2>💶 Facture <small className="badge rounded-pill text-bg-primary">#{ id.substring(0,7) }</small></h2> */}
-                  <div className="card text-bg-dark border-secondary mt-5 p-3">
+                  <div className="card text-bg-dark border-secondary mt-5 mb-5 p-3">
                     <div className="card-body">
                       <div className="row">
                           <div class="col-8">

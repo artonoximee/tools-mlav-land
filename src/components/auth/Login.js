@@ -1,14 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useAuth } from "../../contexts/AuthContext";
 
 function Login() {
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const { logIn } = useAuth();
+  const { logIn, currentUser } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (currentUser) {
+      navigate("/dashboard");
+    }
+  }, []);
 
   async function submitLogIn(data) {
     try {
