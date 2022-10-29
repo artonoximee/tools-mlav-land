@@ -22,18 +22,20 @@ function Create() {
     return (
       <>
         { index > 0 ? <hr /> : null }
-        <label htmlFor={ productName } className={`form-label`}>Dénomination</label>
-        <input 
-          type="text"
-          id={ productName }
-          className={ `form-control text-bg-dark ${ errors[productName] && "is-invalid border-danger" }` }
-          placeholder="Truc à facturer"
-          { ...register(productName, { required: true }) }
-        />
-        { errors[productName] && <div className="form-text text-danger">Veuillez renseigner une dénomination</div> }
         <div className="row">
-          <div className="col-6">
-            <label htmlFor="element" className="form-label mt-2">Prix unitaire</label>
+          <div className="col-8">
+            <label htmlFor={ productName } className={`form-label`}>Désignation du produit</label>
+            <input 
+              type="text"
+              id={ productName }
+              className={ `form-control text-bg-dark ${ errors[productName] && "is-invalid border-danger" }` }
+              placeholder="Désignation du produit"
+              { ...register(productName, { required: true }) }
+            />
+            { errors[productName] && <div className="form-text text-danger">Veuillez renseigner une dénomination</div> }
+          </div>
+          <div className="col-2">
+            <label htmlFor="element" className="form-label">Prix unitaire</label>
             <div className="input-group">
               <span className="input-group-text text-bg-dark">€</span>
               <input 
@@ -46,8 +48,8 @@ function Create() {
             </div>
             { errors[productPrice] && <div className="form-text text-danger">Veuillez renseigner un prix</div> }
           </div>
-          <div className="col-6">
-            <label htmlFor="element" className="form-label mt-2">Quantité</label>
+          <div className="col-2">
+            <label htmlFor="element" className="form-label">Quantité</label>
             <div className="input-group">
               <span className="input-group-text text-bg-dark">u.</span>
               <input 
@@ -111,7 +113,7 @@ function Create() {
               <h2>✏️ Créer une nouvelle facture</h2>
               <hr />
               <form>
-                <h4 className="mt-5 mb-3">Identité client</h4>
+                <h4 className="mt-5 mb-3">Client</h4>
                 <hr />
                 <label htmlFor="name" className="form-label">Nom de l'entité</label>
                 <input 
@@ -193,12 +195,12 @@ function Create() {
                   </div>
                 </div>
 
-                <h4 className="mt-5 mb-3">Éléments à facturer</h4>
+                <h4 className="mt-5 mb-3">Produits</h4>
                 <hr />
 
                 { products }
 
-                <button className="btn btn-outline-secondary mt-4 w-100" onClick={ addProduct } > Ajouter un élément </button>
+                <button className="btn btn-outline-primary mt-4 float-end" onClick={ addProduct } > Ajouter un produit </button>
 
                 <button className="btn btn-primary w-100 mt-5 mb-5" onClick={ handleSubmit(createTag) } type="submit">Créer une nouvelle facture</button>
               </form>
