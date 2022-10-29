@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { db } from "../../config/firebase";
 import { collection, query, where, getDocs } from "firebase/firestore";
+import { useAuth } from "../../contexts/AuthContext";
 
 import Sidebar from "./../Sidebar";
 
 function Show() {
+  const { currentUser } = useAuth();
+  const navigate = useNavigate();
   const [invoice, setInvoice] = useState();
   const [products, setProducts] = useState();
   const [total, setTotal] = useState();
@@ -24,6 +27,11 @@ function Show() {
     querySnapshot.forEach((doc) => {
       arr.push(doc.data())
     });
+    console.log(arr[0].userId)
+    console.log(currentUser.uid)
+    if (arr[0].userId !== currentUser.uid) {
+      navigate("/dashboard");
+    }
     setInvoice(arr[0]);
   }
 
