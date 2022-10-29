@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { db } from "../../config/firebase";
 import { doc, setDoc } from "firebase/firestore";
 import { v4 } from "uuid";
@@ -8,6 +9,7 @@ import { v4 } from "uuid";
 function Create() {
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
   const { currentUser } = useAuth();
+  const navigate = useNavigate();
 
   const [productsCount, setProductsCount] = useState(1);
   const products = []
@@ -74,7 +76,7 @@ function Create() {
     products.push(<Product key={ i } index={ i } />);
   }
 
-  async function createTag(data) {
+  async function createInvoice(data) {
     const invoiceUid = v4();
     const createdAt = new Date().toISOString();
     await setDoc(doc(db, "invoices", invoiceUid), {
@@ -98,8 +100,7 @@ function Create() {
         quantity: data["productQuantity-" + i].replace(",", ".")
       })
     }
-    setProductsCount(1)
-    reset({name: "", representative: "", address: "", postcode: "", city: "", email: "", telephone: ""})
+    navigate(`/invoices/${invoiceUid}`);
   }
 
   return (
@@ -196,7 +197,7 @@ function Create() {
 
         <button className="btn btn-outline-primary mt-4 float-end" onClick={ addProduct } > Ajouter un produit </button>
 
-        <button className="btn btn-primary w-100 mt-5 mb-5" onClick={ handleSubmit(createTag) } type="submit">Créer une nouvelle facture</button>
+        <button className="btn btn-primary w-100 mt-5 mb-5" onClick={ handleSubmit(createInvoice) } type="submit">Créer une nouvelle facture</button>
       </form>
     </>
   )
