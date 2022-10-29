@@ -7,7 +7,7 @@ import { doc, setDoc } from "firebase/firestore";
 import { v4 } from "uuid";
 
 function Create() {
-  const { register, handleSubmit, reset, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm();
   const { currentUser } = useAuth();
   const navigate = useNavigate();
 
