@@ -3,7 +3,7 @@ import React from "react";
 function Quotes() {
   return (
     <>
-      <h2>💼 Devis</h2>
+      <h4>💼 Devis</h4>
       <hr />
     </>
   )

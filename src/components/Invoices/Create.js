@@ -104,7 +104,7 @@ function Create() {
 
   return (
     <>
-      <h2>✏️ Créer une nouvelle facture</h2>
+      <h4>✏️ Créer une nouvelle facture</h4>
       <hr />
       <form>
         <h4 className="mt-5 mb-3">Client</h4>

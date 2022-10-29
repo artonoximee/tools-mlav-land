@@ -28,11 +28,11 @@ function List() {
 
   return (
     <>
-      <h2>💶 Factures</h2>
+      <h4>💶 Factures</h4>
       <hr />
       <Link to="/invoices/new" className="btn btn-outline-primary w-100 mb-5">Créer une nouvelle facture</Link>
 
-      <div class="list-group">
+      <div className="list-group">
         {
           invoices &&
           invoices.map((invoice) => <Item key={ invoice.id } invoice={ invoice } />)

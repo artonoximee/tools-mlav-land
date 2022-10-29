@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import { db } from "../../config/firebase";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import { collection, query, where, getDocs, doc, deleteDoc } from "firebase/firestore";
 import { useAuth } from "../../contexts/AuthContext";
 
 function Show() {
   const { currentUser } = useAuth();
   const navigate = useNavigate();
+  const { register, handleSubmit, formState: { errors } } = useForm();
+
   const [invoice, setInvoice] = useState();
   const [products, setProducts] = useState();
   const [total, setTotal] = useState();
@@ -25,8 +28,6 @@ function Show() {
     querySnapshot.forEach((doc) => {
       arr.push(doc.data())
     });
-    console.log(arr[0].userId)
-    console.log(currentUser.uid)
     if (arr[0].userId !== currentUser.uid) {
       navigate("/dashboard");
     }
@@ -51,6 +52,14 @@ function Show() {
     currency: 'EUR',
   });
 
+  async function deleteInvoice(data) {
+    if (data.delete === "EFFACER") {
+      const invoice = doc(db, "invoices", data.invoiceId);
+      await deleteDoc(invoice);
+      navigate("/invoices");
+    }
+  };
+
   return (
     <>
     {
@@ -60,7 +69,7 @@ function Show() {
         <div className="card text-bg-dark border-secondary mt-5 mb-5 p-3">
           <div className="card-body">
             <div className="row">
-                <div class="col-8">
+                <div className="col-8">
                   <p>
                     <strong>User name</strong> <br />
                     User address <br />
@@ -68,14 +77,14 @@ function Show() {
                     User telephone
                   </p>
                 </div>
-                <div class="col-4">
+                <div className="col-4">
                 </div>
               </div>
 
               <div className="row mt-3 mb-3">
-                <div class="col-7">
+                <div className="col-7">
                 </div>
-                <div class="col-5">
+                <div className="col-5">
                   <p>
                     <strong>{ invoice.name }</strong> <br />
                     { invoice.representative } <br />
@@ -109,7 +118,7 @@ function Show() {
                     {
                       products &&
                       products.map((product, index) => (
-                        <tr>
+                        <tr key={index}>
                           <th scope="row" style={{width: "5%"}}>{ index + 1 }</th>
                           <td>{ product.name }</td>
                           <td className="text-end" style={{width: "20%"}}>{ product.quantity }</td>
@@ -131,6 +140,30 @@ function Show() {
         </div>
       </>
     }
+
+    <div className="card text-bg-dark border-danger mt-5 mb-5 p-3">
+      <h4 className="text-danger">Supprimer la facture</h4>
+      <p>Une fois que vous avez supprimé votre projet, il est impossible de revenir en arrière. Soyez-en sûr. Veuillez taper <span className="font-monospace text-danger">EFFACER</span> pour confirmer l'action.</p>
+      <form>
+        <input 
+          type="hidden" 
+          value={ id }
+          { ...register("invoiceId", { required: true }) }
+        />
+        <div className="input-group mb-3">
+            <input 
+              type="text"
+              id="delete"
+              className={ `form-control border-secondary text-bg-dark mt-2 ${ errors.delete && "is-invalid border-danger" }` }
+              placeholder="EFFACER"
+              { ...register("delete", { required: true }) }
+            />
+            <button className="btn btn-outline-danger mt-2" onClick={handleSubmit(deleteInvoice)}>Envoyer</button>
+        </div>
+        { errors.delete && <div className="form-text text-danger">Veuillez entrer "EFFACER" pour confirmer la suppression</div>}
+        
+      </form>
+    </div>
     </>
   )
 }
