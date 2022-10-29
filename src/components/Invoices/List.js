@@ -6,6 +6,7 @@ import { useAuth } from "../../contexts/AuthContext";
 
 import Sidebar from "./../Sidebar";
 import Item from "./Item";
+import sortInvoices from "../../helpers/sortInvoices";
 
 function List() {
   const { currentUser } = useAuth();
@@ -22,6 +23,7 @@ function List() {
     querySnapshot.forEach((doc) => {
       arr.push(doc.data())
     });
+    sortInvoices(arr);
     setInvoices(arr);
   }
 
