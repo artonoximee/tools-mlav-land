@@ -35,20 +35,6 @@ function Create() {
             { errors[productName] && <div className="form-text text-danger">Veuillez renseigner une dénomination</div> }
           </div>
           <div className="col-2">
-            <label htmlFor="element" className="form-label">Prix unitaire</label>
-            <div className="input-group">
-              <span className="input-group-text text-bg-dark">€</span>
-              <input 
-                type="text"
-                id={ productPrice }
-                className={ `form-control text-bg-dark ${ errors[productPrice] && "is-invalid border-danger" }` }
-                placeholder="500,00"
-                { ...register(productPrice, { required: true }) }
-              />
-            </div>
-            { errors[productPrice] && <div className="form-text text-danger">Veuillez renseigner un prix</div> }
-          </div>
-          <div className="col-2">
             <label htmlFor="element" className="form-label">Quantité</label>
             <div className="input-group">
               <span className="input-group-text text-bg-dark">u.</span>
@@ -61,6 +47,20 @@ function Create() {
               />
             </div>
             { errors[productQuantity] && <div className="form-text text-danger">Veuillez renseigner une quantité</div> }
+          </div>
+          <div className="col-2">
+            <label htmlFor="element" className="form-label">Prix unitaire</label>
+            <div className="input-group">
+              <span className="input-group-text text-bg-dark">€</span>
+              <input 
+                type="text"
+                id={ productPrice }
+                className={ `form-control text-bg-dark ${ errors[productPrice] && "is-invalid border-danger" }` }
+                placeholder="500,00"
+                { ...register(productPrice, { required: true }) }
+              />
+            </div>
+            { errors[productPrice] && <div className="form-text text-danger">Veuillez renseigner un prix</div> }
           </div>
         </div>
       </>
@@ -96,8 +96,8 @@ function Create() {
       await setDoc(doc(db, `invoices/${invoiceUid}/elements`, productUid), {
         id: productUid,
         name: data["productName-" + i],
-        price: data["productPrice-" + i],
-        quantity: data["productQuantity-" + i]
+        price: data["productPrice-" + i].replace(",", "."),
+        quantity: data["productQuantity-" + i].replace(",", ".")
       })
     }
     setProductsCount(1)
