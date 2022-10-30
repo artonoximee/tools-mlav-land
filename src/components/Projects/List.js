@@ -5,6 +5,7 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import { useAuth } from "../../contexts/AuthContext";
 
 import ListItem from "./ListItem";
+import sortByCreationDate from "../../helpers/sortByCreationDate";
 
 function List() {
   const { currentUser } = useAuth();
@@ -21,7 +22,7 @@ function List() {
     querySnapshot.forEach((doc) => {
       arr.push(doc.data())
     });
-    // sortByCreationDate(arr);
+    sortByCreationDate(arr);
     setProjects(arr);
   }
 
