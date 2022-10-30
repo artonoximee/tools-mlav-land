@@ -45,6 +45,12 @@ function Sidebar({ children }) {
             </Link>
           </li>
           <li>
+            <Link to="/counters" className={`nav-link ${ location.pathname.includes("counters") ? "active" : "text-white" }`}>
+              ⏱️
+              Compteurs
+            </Link>
+          </li>
+          <li>
             <Link to="/quotes" className={`nav-link ${ location.pathname.includes("quotes") ? "active" : "text-white" }`}>
               💼
               Devis
@@ -54,12 +60,6 @@ function Sidebar({ children }) {
             <Link to="/invoices" className={`nav-link ${ location.pathname.includes("invoices") ? "active" : "text-white" }`}>
               💶
               Factures
-            </Link>
-          </li>
-          <li>
-            <Link to="/counters" className={`nav-link ${ location.pathname.includes("counters") ? "active" : "text-white" }`}>
-              ⏱️
-              Compteur
             </Link>
           </li>
         </ul>
