@@ -57,7 +57,7 @@ function Sidebar({ children }) {
             </Link>
           </li>
           <li>
-            <Link to="/counter" className={`nav-link ${ location.pathname.includes("counter") ? "active" : "text-white" }`}>
+            <Link to="/counters" className={`nav-link ${ location.pathname.includes("counters") ? "active" : "text-white" }`}>
               ⏱️
               Compteur
             </Link>
