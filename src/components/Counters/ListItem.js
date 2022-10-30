@@ -9,19 +9,12 @@ function ListItem(props) {
   }
 
   return (
-    <div className="list-group-item list-group-item-action text-bg-dark border-secondary p-3">
-      <div className="row align-items-center">
-        <div className="col-lg-8">
-          <h6><span className="badge rounded-pill text-bg-primary me-1">{ acronym }</span> { name }</h6>
-        </div>
-        <div className="col-lg-2">
-          <small className="badge rounded-pill text-bg-secondary float-end">{ hours } h</small>
-        </div>
-        <div className="col-lg-2">
-          <small className="badge rounded-pill text-bg-primary float-end">{ hoursToDays(hours) } jour{ hoursToDays(hours) > 1 ? "s" : "" }</small>
-        </div>
-      </div>
-    </div>
+    <tr>
+      <th scope="row"><span className="badge rounded-pill text-bg-primary">{ acronym }</span></th>
+      <td>{ name }</td>
+      <td><small className="badge rounded-pill text-bg-secondary float-end">{ hours } h</small></td>
+      <td><small className="badge rounded-pill text-bg-primary float-end">{ hoursToDays(hours) } jour{ hoursToDays(hours) > 1 ? "s" : "" }</small></td>
+    </tr>
   )
 }
 

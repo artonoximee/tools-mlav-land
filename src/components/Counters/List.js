@@ -61,7 +61,9 @@ function List() {
     projects.forEach(project => {
       const projectName = project.acronym;
       const projectDays = hoursToDays(sumHours(project.id, counters));
-      data.push({name: projectName, days: projectDays});
+      if (projectDays > 0) {
+        data.push({name: projectName, days: projectDays});
+      }
     })
     return data;
   }
@@ -71,16 +73,17 @@ function List() {
       <h4>⏱️ Compteur</h4>
       <hr />
       <Link to="/counters/new" className="btn btn-outline-primary w-100 mb-5">Ajouter un nouveau temps</Link>
+      <div className="h-50">
       {
         projects && counters &&
-        <ResponsiveContainer width="100%" height="50%">
+        <ResponsiveContainer width="100%" height="100%">
           <BarChart
             data={formatDataForChart(projects, counters)}
             margin={{
               top: 0,
               right: 0,
               left: 0,
-              bottom: 40,
+              bottom: 10,
             }}
           >
             <XAxis dataKey="name" textAnchor="end" tick={{ angle: -45 }} />
@@ -90,19 +93,22 @@ function List() {
           </BarChart>
         </ResponsiveContainer>
       }
-
-      <div className="list-group mt-5">
-        {
-          projects && counters &&
-          projects.map((project) => (
-          <ListItem 
-            key={ project.id } 
-            project={ project }
-            hours={ sumHours(project.id, counters) }
-          />
-          ))
-        }
       </div>
+
+      <table class="table table-dark mt-5">
+        <tbody>
+          {
+            projects && counters &&
+            projects.map((project) => (
+            <ListItem 
+              key={ project.id } 
+              project={ project }
+              hours={ sumHours(project.id, counters) }
+            />
+            ))
+          }
+        </tbody>
+      </table>
     </>
   )
 }

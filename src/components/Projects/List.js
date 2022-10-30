@@ -37,7 +37,6 @@ function List() {
       <Link to="/projects/new" className="btn btn-outline-primary w-100 mb-5">Créer un nouveau projet</Link>
 
       <table class="table table-dark">
-
         <tbody>
           {
             projects &&
