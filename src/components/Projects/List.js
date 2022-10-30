@@ -36,19 +36,22 @@ function List() {
       <hr />
       <Link to="/projects/new" className="btn btn-outline-primary w-100 mb-5">Créer un nouveau projet</Link>
 
-      <div className="list-group">
-        {
-          projects &&
-          projects.map((project) => (
-          <ListItem 
-            key={ project.id } 
-            project={ project }
-            setOpenDeleteModal={ setOpenDeleteModal }
-            setSelectedProject={ setSelectedProject }
-          />
-          ))
-        }
-      </div>
+      <table class="table table-dark">
+
+        <tbody>
+          {
+            projects &&
+            projects.map((project) => (
+            <ListItem 
+              key={ project.id } 
+              project={ project }
+              setOpenDeleteModal={ setOpenDeleteModal }
+              setSelectedProject={ setSelectedProject }
+            />
+            ))
+          }
+        </tbody>
+      </table>
 
       { openDeleteModal && (
         <DeleteModal setOpenDeleteModal={ setOpenDeleteModal } selectedProject={ selectedProject } setReload={ setReload } />
