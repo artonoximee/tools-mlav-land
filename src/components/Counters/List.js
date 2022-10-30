@@ -59,7 +59,7 @@ function List() {
   function formatDataForChart(projects, counters) {
     let data = []
     projects.forEach(project => {
-      const projectName = project.name.substring(0,10);
+      const projectName = project.acronym;
       const projectDays = hoursToDays(sumHours(project.id, counters));
       data.push({name: projectName, days: projectDays});
     })

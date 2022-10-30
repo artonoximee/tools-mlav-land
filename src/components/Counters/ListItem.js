@@ -1,7 +1,7 @@
 import React from "react";
 
 function ListItem(props) {
-  const { name } = props.project;
+  const { name, acronym } = props.project;
   const { hours } = props;
 
   function hoursToDays(hours) {
@@ -10,9 +10,9 @@ function ListItem(props) {
 
   return (
     <div className="list-group-item list-group-item-action text-bg-dark border-secondary p-3">
-      <div className="row">
+      <div className="row align-items-center">
         <div className="col-lg-8">
-          <h5>{ name }</h5>
+          <h6><span className="badge rounded-pill text-bg-primary me-1">{ acronym }</span> { name }</h6>
         </div>
         <div className="col-lg-2">
           <small className="badge rounded-pill text-bg-secondary float-end">{ hours } h</small>
