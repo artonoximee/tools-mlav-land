@@ -13,10 +13,11 @@ function List() {
   const [projects, setProjects] = useState();
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [selectedProject, setSelectedProject] = useState();
+  const [reload, setReload] = useState(false);
 
   useEffect(() => {
     getProjects()
-  }, [])
+  }, [reload])
 
   async function getProjects() {
     const q = query(collection(db, "projects"), where("userId", "==", currentUser.uid));
@@ -50,7 +51,7 @@ function List() {
       </div>
 
       { openDeleteModal && (
-        <DeleteModal setOpenDeleteModal={ setOpenDeleteModal } selectedProject={ selectedProject } />
+        <DeleteModal setOpenDeleteModal={ setOpenDeleteModal } selectedProject={ selectedProject } setReload={ setReload } />
       )}
     </>
   )

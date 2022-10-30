@@ -5,7 +5,7 @@ function ListItem(props) {
   const { id, name, createdAt } = props.project
 
   function handleClickDelete(e) {
-    setSelectedProject(id);
+    setSelectedProject({id, name});
     setOpenDeleteModal(true);
   }
 
