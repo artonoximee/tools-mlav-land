@@ -5,7 +5,7 @@ import { db } from "../../config/firebase";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { useAuth } from "../../contexts/AuthContext";
 
-import Item from "./Item";
+import ListItem from "./ListItem";
 import sortInvoices from "../../helpers/sortInvoices";
 
 function List() {
@@ -36,7 +36,7 @@ function List() {
       <div className="list-group">
         {
           invoices &&
-          invoices.map((invoice) => <Item key={ invoice.id } invoice={ invoice } />)
+          invoices.map((invoice) => <ListItem key={ invoice.id } invoice={ invoice } />)
         }
       </div>
     </>

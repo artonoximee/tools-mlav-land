@@ -33,7 +33,7 @@ function Create() {
           type="text"
           id="name"
           className={ `form-control text-bg-dark ${ errors.name && "is-invalid border-danger" }` }
-          placeholder=""
+          placeholder="Nom du projet"
           { ...register("name", { required: true }) }
         />
         { errors.name && <div className="form-text text-danger">Veuillez renseigner un nom de projet</div> }
