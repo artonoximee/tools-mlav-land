@@ -78,7 +78,7 @@ function Sidebar({ children }) {
       </nav>
       <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4 p-5">
           <div className="row mt-5 justify-content-center">
-            <div className="col-8">
+            <div className="col-lg-8 col-md-10 col-sm-12">
               { children }
             </div>
           </div>
