@@ -1,6 +1,6 @@
 import React from "react";
 
-function Counter() {
+function List() {
   return (
     <>
       <h4>⏱️ Compteur</h4>
@@ -9,4 +9,4 @@ function Counter() {
   )
 }
 
-export default Counter;
+export default List;

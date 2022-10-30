@@ -39,6 +39,12 @@ function Sidebar({ children }) {
             </Link>
           </li>
           <li>
+            <Link to="/projects" className={`nav-link ${ location.pathname.includes("projects") ? "active" : "text-white" }`}>
+              🏗️
+              Projets
+            </Link>
+          </li>
+          <li>
             <Link to="/quotes" className={`nav-link ${ location.pathname.includes("quotes") ? "active" : "text-white" }`}>
               💼
               Devis

@@ -3,7 +3,7 @@ import React from "react";
 function List() {
   return (
     <>
-      <h4>💼 Devis</h4>
+      <h4>🏗️ Projets</h4>
       <hr />
     </>
   )
