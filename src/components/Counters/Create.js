@@ -34,7 +34,7 @@ function Create() {
     await setDoc(doc(db, "counters", counterUid), {
       id: counterUid, 
       userId: currentUser.uid,
-      time: data.time,
+      time: data.time.replace(",", "."),
       projectId: data.project,
       createdAt: createdAt
     });
