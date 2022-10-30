@@ -70,7 +70,7 @@ function Create() {
             { 
               projects && 
               projects.map(project => (
-                <option key={ project.id } value={ project.id }>{ project.name }</option>
+                <option key={ project.id } value={ project.id }>{ project.acronym } - { project.name }</option>
               ))
             }
           </select>
