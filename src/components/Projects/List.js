@@ -5,11 +5,14 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import { useAuth } from "../../contexts/AuthContext";
 
 import ListItem from "./ListItem";
+import DeleteModal from "./DeleteModal";
 import sortByCreationDate from "../../helpers/sortByCreationDate";
 
 function List() {
   const { currentUser } = useAuth();
   const [projects, setProjects] = useState();
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const [selectedProject, setSelectedProject] = useState();
 
   useEffect(() => {
     getProjects()
@@ -35,9 +38,20 @@ function List() {
       <div className="list-group">
         {
           projects &&
-          projects.map((project) => <ListItem key={ project.id } project={ project } />)
+          projects.map((project) => (
+          <ListItem 
+            key={ project.id } 
+            project={ project }
+            setOpenDeleteModal={ setOpenDeleteModal }
+            setSelectedProject={ setSelectedProject }
+          />
+          ))
         }
       </div>
+
+      { openDeleteModal && (
+        <DeleteModal setOpenDeleteModal={ setOpenDeleteModal } selectedProject={ selectedProject } />
+      )}
     </>
   )
 }
