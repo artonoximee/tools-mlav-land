@@ -9,6 +9,7 @@ import Login from "./components/Auth/Login";
 import Sidebar from "./components/Sidebar";
 import Dashboard from "./components/Dashboard";
 import Projects from "./components/Projects/List";
+import CreateProject from "./components/Projects/Create";
 import Quotes from "./components/Quotes/List";
 import Invoices from "./components/Invoices/List";
 import CreateInvoice from "./components/Invoices/Create";
@@ -24,6 +25,7 @@ function App() {
             <Route exact path="/" element={ <Login /> } />
             <Route path="/dashboard" element={ <PrivateRoute><Sidebar><Dashboard /></Sidebar></PrivateRoute> } />
             <Route path="/projects" element={ <PrivateRoute><Sidebar><Projects /></Sidebar></PrivateRoute> } />
+            <Route path="/projects/new" element={ <PrivateRoute><Sidebar><CreateProject /></Sidebar></PrivateRoute> } />
             <Route path="/quotes" element={ <PrivateRoute><Sidebar><Quotes /></Sidebar></PrivateRoute> } />
             <Route path="/invoices" element={ <PrivateRoute><Sidebar><Invoices /></Sidebar></PrivateRoute> } />
             <Route path="/invoices/new" element={ <PrivateRoute><Sidebar><CreateInvoice /></Sidebar></PrivateRoute> } />
