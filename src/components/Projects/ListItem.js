@@ -2,7 +2,7 @@ import React from "react";
 
 function ListItem(props) {
   const { setOpenDeleteModal, setSelectedProject } = props;
-  const { id, acronym, name, createdAt } = props.project
+  const { id, acronym, name } = props.project
 
   function handleClickDelete(e) {
     setSelectedProject({id, name});

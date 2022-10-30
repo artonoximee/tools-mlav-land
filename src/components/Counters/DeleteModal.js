@@ -1,6 +1,5 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import { db } from "../../config/firebase";
 import { doc, deleteDoc } from "firebase/firestore";
 import "./DeleteModal.css";
@@ -8,7 +7,6 @@ import "./DeleteModal.css";
 function DeleteModal(props) {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const { setOpenDeleteModal, selectedCounter, setReload } = props;
-  const navigate = useNavigate();
 
   const handleClick = (e) => {
     if (e.target.classList.contains('backdrop')) {
@@ -18,8 +16,8 @@ function DeleteModal(props) {
 
   async function deleteProject(data) {
     if (data.delete === "EFFACER") {
-      const project = doc(db, "counters", data.counterId);
-      await deleteDoc(project);
+      const counter = doc(db, "counters", data.counterId);
+      await deleteDoc(counter);
       setOpenDeleteModal(false);
       setReload(prev => !prev);
     }
