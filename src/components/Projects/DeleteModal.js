@@ -2,7 +2,6 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { db } from "../../config/firebase";
 import { doc, deleteDoc } from "firebase/firestore";
-import "./DeleteModal.css";
 
 function DeleteModal(props) {
   const { register, handleSubmit, formState: { errors } } = useForm();

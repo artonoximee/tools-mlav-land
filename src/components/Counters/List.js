@@ -8,6 +8,7 @@ import { useAuth } from "../../contexts/AuthContext";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 
 import ListItem from "./ListItem";
+import CreateModal from "./CreateModal";
 import sortByCreationDate from "../../helpers/sortByCreationDate";
 
 import "./List.css";
@@ -16,11 +17,13 @@ function List() {
   const { currentUser } = useAuth();
   const [projects, setProjects] = useState();
   const [counters, setCounters] = useState();
+  const [openCreateModal, setOpenCreateModal] = useState(false);
+  const [reload, setReload] = useState();
 
   useEffect(() => {
     getProjects()
     getCounters()
-  }, [])
+  }, [reload])
 
   async function getProjects() {
     const q = query(collection(db, "projects"), where("userId", "==", currentUser.uid));
@@ -69,11 +72,15 @@ function List() {
     return data;
   }
 
+  function handleClickCreate() {
+    setOpenCreateModal(true);
+  }
+
   return (
     <>
       <h4>⏱️ Compteurs</h4>
       <hr />
-      <Link to="/counters/new" className="btn btn-outline-primary w-100 mb-5">Ajouter un nouveau temps</Link>
+      <button onClick={ handleClickCreate } className="btn btn-outline-primary w-100 mb-5">Ajouter un nouveau temps</button>
       <div className="h-50">
       {
         projects && counters &&
@@ -110,6 +117,10 @@ function List() {
           }
         </tbody>
       </table>
+
+      { openCreateModal && (
+        <CreateModal setOpenCreateModal={ setOpenCreateModal } setReload={ setReload } />
+      )}
     </>
   )
 }

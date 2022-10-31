@@ -1,16 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { db } from "../../config/firebase";
 import { collection, query, where, getDocs } from "firebase/firestore";
 
+import CreateModal from "./CreateModal";
 import DeleteModal from "./DeleteModal";
 
 function Show() {
   const { id } = useParams();
   const [project, setProject] = useState();
   const [counters, setCounters] = useState();
+  const [openCreateModal, setOpenCreateModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [selectedCounter, setSelectedCounter] = useState();
   const [reload, setReload] = useState(false);
@@ -40,6 +41,10 @@ function Show() {
     setCounters(arr);
   }
 
+  function handleClickCreate() {
+    setOpenCreateModal(true);
+  }
+
   function handleClickDelete(counter) {
     setSelectedCounter(counter);
     setOpenDeleteModal(true);
@@ -53,7 +58,7 @@ function Show() {
         <h4>⏱️ Compteurs - <strong>{ project.name }</strong></h4>
       }
       <hr />
-      <Link to="/counters/new" className="btn btn-outline-primary w-100 mb-5">Ajouter un nouveau temps</Link>
+      <button onClick={ handleClickCreate } className="btn btn-outline-primary w-100 mb-5">Ajouter un nouveau temps</button>
       <table className="table table-dark">
         <thead>
           <tr>
@@ -77,6 +82,10 @@ function Show() {
           }
         </tbody>
       </table>
+
+      { openCreateModal && (
+        <CreateModal setOpenCreateModal={ setOpenCreateModal } setReload={ setReload } currentProject={ id } />
+      )}
 
       { openDeleteModal && (
         <DeleteModal setOpenDeleteModal={ setOpenDeleteModal } selectedCounter={ selectedCounter } setReload={ setReload } />

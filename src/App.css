@@ -1,3 +1,5 @@
+/* General styling */
+
 body {
   background-color: #212529;
 }
@@ -8,4 +10,27 @@ body {
 
 .bottom-margin {
   margin-bottom: 12vh !important;
+}
+
+/* Backdrop for modals */
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.8);
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.backdrop > .card {
+  display: block;
+  position: absolute;
+  max-width: 40%;
+  max-height: 80%;
+  z-index: 2;
 }
