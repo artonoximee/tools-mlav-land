@@ -1,41 +1,45 @@
 import React from "react";
-import { useAuth } from "../../contexts/AuthContext";
 import { useForm } from "react-hook-form";
 import { db } from "../../config/firebase";
-import { doc, setDoc } from "firebase/firestore";
-import { v4 } from "uuid";
+import { doc, updateDoc } from "firebase/firestore";
 
-function CreateModal(props) {
-  const { register, handleSubmit, formState: { errors } } = useForm();
-  const { currentUser } = useAuth();
-  const { setOpenCreateModal, setReload } = props;
+function UpdateModal(props) {
+  const { setOpenUpdateModal, user, setReload } = props;
+
+  const { register, handleSubmit, formState: { errors } } = useForm({
+    defaultValues: { 
+      firstName: user.firstName, 
+      lastName: user.lastName,
+      address: user.address,
+      postcode: user.postcode,
+      city: user.city,
+      telephone: user.telephone
+     }
+  });
 
   const handleClick = (e) => {
     if (e.target.classList.contains('backdrop')) {
-      setOpenCreateModal(false);
+      setOpenUpdateModal(false);
     }
   }
 
-  async function createUser(data) {
-    const createdAt = new Date().toISOString();
-    await setDoc(doc(db, "users", currentUser.uid), {
-      id: currentUser.uid,
-      firstName: data.firstName || "",
-      lastName: data.lastName || "",
-      address: data.address || "",
-      postcode: data.postcode || "",
-      city: data.city || "",
-      telephone: data.telephone || "",
-      createdAt: createdAt
+  async function updateUser(data) {
+    await updateDoc(doc(db, "users", user.id), {
+      firstName: data.firstName, 
+      lastName: data.lastName,
+      address: data.address,
+      postcode: data.postcode,
+      city: data.city,
+      telephone: data.telephone
     });
-    setOpenCreateModal(false);
+    setOpenUpdateModal(false);
     setReload(prev => !prev);
   }
 
   return (
     <div className="backdrop" onClick={ handleClick }>
       <div className="card text-bg-dark border-secondary p-3">
-        <h4 className="">Ajouter des informations</h4>
+        <h4 className="">Modifier les informations</h4>
         <hr />
         <form>
           <div className="row mt-3">
@@ -108,11 +112,11 @@ function CreateModal(props) {
           />
           { errors.telephone && <div className="form-text text-danger">Veuillez renseigner un numéro de téléphone</div> }
 
-          <button className="btn btn-primary w-100 mt-4 mb-2" onClick={ handleSubmit(createUser) } type="submit">Envoyer</button>
+          <button className="btn btn-primary w-100 mt-4 mb-2" onClick={ handleSubmit(updateUser) } type="submit">Envoyer</button>
         </form>
       </div>
     </div>
   )
 };
 
-export default CreateModal;
+export default UpdateModal;

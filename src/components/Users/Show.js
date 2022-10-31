@@ -5,7 +5,7 @@ import { db } from "../../config/firebase";
 import { collection, query, where, getDocs } from "firebase/firestore";
 
 import CreateModal from "./CreateModal";
-import UpdateModal from "./CreateModal";
+import UpdateModal from "./UpdateModal";
 
 function Show() {
   const { id } = useParams();
@@ -17,7 +17,7 @@ function Show() {
 
   useEffect(() => {
     getUser()
-  }, [])
+  }, [reload])
 
   async function getUser() {
     const q = query(collection(db, "users"), where("id", "==", id));
@@ -47,7 +47,7 @@ function Show() {
       }
       {
         user &&
-        <button onClick={ handleClickCreate } className="btn btn-outline-primary w-100 mb-5">Modifier les informations</button>
+        <button onClick={ handleClickUpdate } className="btn btn-outline-primary w-100 mb-5">Modifier les informations</button>
       }
       
       {
@@ -59,12 +59,30 @@ function Show() {
                 <h1>🧑‍💻</h1>
               </div>
               <div className="col-11">
-                Nom : <b>{ user.firstName }</b> <br />
-                Prénom : <b>{ user.lastName }</b> <br />
-                Adresse : <b>{ user.address }</b> <br />
-                Code postal : <b>{ user.postcode }</b> <br />
-                Ville : <b>{ user.city }</b> <br />
-                Téléphone : <b>{ user.telephone }</b>
+                {
+                  user.firstName !== "" &&
+                  <>Prénom : <b>{ user.firstName }</b> <br /></>
+                }
+                {
+                  user.lastName !== "" &&
+                  <>Nom : <b>{ user.lastName }</b> <br /></>
+                }
+                {
+                  user.address !== "" &&
+                  <>Adresse : <b>{ user.address }</b> <br /></>
+                }
+                {
+                  user.postcode !== "" &&
+                  <>Code postal : <b>{ user.postcode }</b> <br /></>
+                }
+                {
+                  user.city !== "" &&
+                  <>Ville : <b>{ user.city }</b> <br /></>
+                }
+                {
+                  user.telephone !== "" &&
+                  <>Téléphone : <b>{ user.telephone }</b> <br /></>
+                }
               </div>
             </div>
           </div>
@@ -75,7 +93,6 @@ function Show() {
           <div className="card-body">
             <div className="row">
               <div className="col-1">
-
               </div>
               <div className="col-11">
                 Email : <b>{ currentUser.email }</b> <br />
@@ -86,6 +103,10 @@ function Show() {
 
       { openCreateModal && (
         <CreateModal setOpenCreateModal={ setOpenCreateModal } setReload={ setReload } />
+      )}
+
+      { openUpdateModal && (
+        <UpdateModal setOpenUpdateModal={ setOpenUpdateModal } user={ user } setReload={ setReload } />
       )}
     </>
   )
