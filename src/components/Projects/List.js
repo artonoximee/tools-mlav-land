@@ -1,16 +1,18 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect} from "react";
-import { Link } from 'react-router-dom';
 import { db } from "../../config/firebase";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { useAuth } from "../../contexts/AuthContext";
 
 import ListItem from "./ListItem";
+import CreateModal from "./CreateModal";
 import DeleteModal from "./DeleteModal";
 import sortByCreationDate from "../../helpers/sortByCreationDate";
 
 function List() {
   const { currentUser } = useAuth();
   const [projects, setProjects] = useState();
+  const [openCreateModal, setOpenCreateModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [selectedProject, setSelectedProject] = useState();
   const [reload, setReload] = useState(false);
@@ -30,11 +32,15 @@ function List() {
     setProjects(arr);
   }
 
+  function handleClickCreate() {
+    setOpenCreateModal(true);
+  }
+
   return (
     <>
       <h4>🏗️ Projets</h4>
       <hr />
-      <Link to="/projects/new" className="btn btn-outline-primary w-100 mb-5">Créer un nouveau projet</Link>
+      <button onClick={ handleClickCreate } className="btn btn-outline-primary w-100 mb-5">Ajouter un nouveau projet</button>
 
       <table class="table table-dark">
         <tbody>
@@ -51,6 +57,10 @@ function List() {
           }
         </tbody>
       </table>
+
+      { openCreateModal && (
+        <CreateModal setOpenCreateModal={ setOpenCreateModal } setReload={ setReload } />
+      )}
 
       { openDeleteModal && (
         <DeleteModal setOpenDeleteModal={ setOpenDeleteModal } selectedProject={ selectedProject } setReload={ setReload } />
