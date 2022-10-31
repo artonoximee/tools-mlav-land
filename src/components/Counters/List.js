@@ -102,7 +102,7 @@ function List() {
       }
       </div>
 
-      <table class="table table-dark mt-5">
+      <table className="table table-dark mt-5">
         <tbody>
           {
             projects && counters &&

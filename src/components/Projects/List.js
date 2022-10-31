@@ -44,7 +44,7 @@ function List() {
       <hr />
       <button onClick={ handleClickCreate } className="btn btn-outline-primary w-100 mb-5">Ajouter un nouveau projet</button>
 
-      <table class="table table-dark">
+      <table className="table table-dark">
         <tbody>
           {
             projects &&

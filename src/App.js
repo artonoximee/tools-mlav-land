@@ -17,6 +17,7 @@ import ShowInvoice from "./components/Invoices/Show";
 import Counters from "./components/Counters/List";
 import CreateCounter from "./components/Counters/Create";
 import ShowCounters from "./components/Counters/Show";
+import ShowUser from "./components/Users/Show";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
             <Route path="/counters" element={ <PrivateRoute><Sidebar><Counters /></Sidebar></PrivateRoute> } />
             <Route path="/counters/new" element={ <PrivateRoute><Sidebar><CreateCounter /></Sidebar></PrivateRoute> } />
             <Route path="/counters/:id" element={ <PrivateRoute><Sidebar><ShowCounters /></Sidebar></PrivateRoute> } />
+            <Route path="/users/:id" element={ <PrivateRoute><Sidebar><ShowUser /></Sidebar></PrivateRoute> } />
             <Route path="*" element={ <h1>Error</h1> } />
           </Routes>
         </div>

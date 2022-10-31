@@ -5,7 +5,7 @@ import "./Sidebar.css";
 
 function Sidebar({ children }) {
   const [error, setError] = useState("");
-  const { logOut } = useAuth();
+  const { currentUser, logOut } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -67,6 +67,12 @@ function Sidebar({ children }) {
         <hr className="" />
 
         <ul className="nav nav-pills flex-column">
+        <li className="nav-item">
+            <Link to={ `/users/${ currentUser.uid }` } className="nav-link text-white">
+              🧑‍💻 
+              Compte
+            </Link>
+          </li>
           <li className="nav-item">
             <Link onClick={handleLogOut} className="nav-link text-white">
               🚪
