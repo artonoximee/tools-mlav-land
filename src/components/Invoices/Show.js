@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { db } from "../../config/firebase";
 import { collection, query, where, getDocs, doc, deleteDoc } from "firebase/firestore";
@@ -11,16 +11,28 @@ function Show() {
   const navigate = useNavigate();
   const { register, handleSubmit, formState: { errors } } = useForm();
 
+  const [user, setUser] = useState();
   const [invoice, setInvoice] = useState();
   const [products, setProducts] = useState();
   const [total, setTotal] = useState();
 
   useEffect(() => {
+    getUser()
     getInvoice()
     getProducts()
   }, [])
 
   const { id } = useParams();
+
+  async function getUser() {
+    const q = query(collection(db, "users"), where("id", "==", currentUser.uid));
+    const querySnapshot = await getDocs(q);
+    const arr = []
+    querySnapshot.forEach((doc) => {
+      arr.push(doc.data())
+    });
+    setUser(arr[0]);
+  }
 
   async function getInvoice() {
     const q = query(collection(db, "invoices"), where("id", "==", id));
@@ -66,17 +78,28 @@ function Show() {
     {
       invoice &&
       <>
-        {/* <h2>💶 Facture <small className="badge rounded-pill text-bg-primary">#{ id.substring(0,7) }</small></h2> */}
         <div className="card text-bg-dark border-secondary mt-5 mb-5 p-3">
           <div className="card-body">
             <div className="row">
                 <div className="col-8">
-                  <p>
-                    <strong>User name</strong> <br />
-                    User address <br />
-                    User email <br />
-                    User telephone
-                  </p>
+                  {
+                    user &&
+                    <p>
+                      <strong>{ user.firstName } {user.lastName}</strong> <br />
+                      { user.address } <br />
+                      { user.postcode }, { user.city } <br />
+                      { currentUser.email } <br />
+                      { user.telephone } <br />
+                      N° SIRET : { user.siret } <br />
+                    </p>
+                  }
+                  {
+                    !user &&
+                    <Link to={ `/users/${ currentUser.uid }` } className="btn btn-outline-danger">
+                      Pour afficher vos coordonnées, <br /> entrez vos informations dans la partie Compte
+                    </Link>
+                  }
+                  
                 </div>
                 <div className="col-4">
                 </div>

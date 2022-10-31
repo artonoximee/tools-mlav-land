@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useAuth } from "./../../contexts/AuthContext";
@@ -82,6 +83,10 @@ function Show() {
                 {
                   user.telephone !== "" &&
                   <>Téléphone : <b>{ user.telephone }</b> <br /></>
+                }
+                {
+                  user.siret !== "" &&
+                  <>SIRET : <b>{ user.siret }</b> <br /></>
                 }
               </div>
             </div>

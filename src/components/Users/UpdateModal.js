@@ -13,7 +13,8 @@ function UpdateModal(props) {
       address: user.address,
       postcode: user.postcode,
       city: user.city,
-      telephone: user.telephone
+      telephone: user.telephone,
+      siret: user.siret
      }
   });
 
@@ -111,6 +112,16 @@ function UpdateModal(props) {
             { ...register("telephone") }
           />
           { errors.telephone && <div className="form-text text-danger">Veuillez renseigner un numéro de téléphone</div> }
+
+          <label htmlFor="siret" className="form-label mt-3">SIRET</label>
+          <input 
+            type="text"
+            id="siret"
+            className={ `form-control text-bg-dark ${ errors.siret && "is-invalid border-danger" }` }
+            placeholder="123 456 789 12345"
+            { ...register("siret") }
+          />
+          { errors.siret && <div className="form-text text-danger">Veuillez renseigner un numéro de SIRET</div> }
 
           <button className="btn btn-primary w-100 mt-4 mb-2" onClick={ handleSubmit(updateUser) } type="submit">Envoyer</button>
         </form>

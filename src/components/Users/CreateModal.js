@@ -3,7 +3,6 @@ import { useAuth } from "../../contexts/AuthContext";
 import { useForm } from "react-hook-form";
 import { db } from "../../config/firebase";
 import { doc, setDoc } from "firebase/firestore";
-import { v4 } from "uuid";
 
 function CreateModal(props) {
   const { register, handleSubmit, formState: { errors } } = useForm();
@@ -26,6 +25,7 @@ function CreateModal(props) {
       postcode: data.postcode || "",
       city: data.city || "",
       telephone: data.telephone || "",
+      siret: data.siret || "",
       createdAt: createdAt
     });
     setOpenCreateModal(false);
@@ -107,6 +107,16 @@ function CreateModal(props) {
             { ...register("telephone") }
           />
           { errors.telephone && <div className="form-text text-danger">Veuillez renseigner un numéro de téléphone</div> }
+
+          <label htmlFor="siret" className="form-label mt-3">SIRET</label>
+          <input 
+            type="text"
+            id="siret"
+            className={ `form-control text-bg-dark ${ errors.siret && "is-invalid border-danger" }` }
+            placeholder="123 456 789 12345"
+            { ...register("siret") }
+          />
+          { errors.siret && <div className="form-text text-danger">Veuillez renseigner un numéro de SIRET</div> }
 
           <button className="btn btn-primary w-100 mt-4 mb-2" onClick={ handleSubmit(createUser) } type="submit">Envoyer</button>
         </form>
