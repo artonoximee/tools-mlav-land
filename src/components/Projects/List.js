@@ -6,6 +6,7 @@ import { useAuth } from "../../contexts/AuthContext";
 
 import ListItem from "./ListItem";
 import CreateModal from "./CreateModal";
+import UpdateModal from "./UpdateModal";
 import DeleteModal from "./DeleteModal";
 import sortByCreationDate from "../../helpers/sortByCreationDate";
 
@@ -13,6 +14,7 @@ function List() {
   const { currentUser } = useAuth();
   const [projects, setProjects] = useState();
   const [openCreateModal, setOpenCreateModal] = useState(false);
+  const [openUpdateModal, setOpenUpdateModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [selectedProject, setSelectedProject] = useState();
   const [reload, setReload] = useState(false);
@@ -50,6 +52,7 @@ function List() {
             <ListItem 
               key={ project.id } 
               project={ project }
+              setOpenUpdateModal={ setOpenUpdateModal }
               setOpenDeleteModal={ setOpenDeleteModal }
               setSelectedProject={ setSelectedProject }
             />
@@ -60,6 +63,10 @@ function List() {
 
       { openCreateModal && (
         <CreateModal setOpenCreateModal={ setOpenCreateModal } setReload={ setReload } />
+      )}
+
+      { openUpdateModal && (
+        <UpdateModal setOpenUpdateModal={ setOpenUpdateModal } selectedProject={ selectedProject } setReload={ setReload } />
       )}
 
       { openDeleteModal && (

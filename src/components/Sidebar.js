@@ -26,7 +26,7 @@ function Sidebar({ children }) {
         <Link to="/dashboard" className="d-flex align-items-center mt-4 mb-3 mb-md-0 me-md-auto text-white text-decoration-none fs-4">
           <span className="badge rounded-pill text-bg-primary">🛠️</span>
           <span className="ps-2 fw-bold">mlavTools</span>
-          <sup><span className="badge rounded-pill text-bg-danger sup">v0.1.3</span></sup>
+          <sup><span className="badge rounded-pill text-bg-danger sup">v0.1.4</span></sup>
         </Link>
 
         <hr />
