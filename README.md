@@ -38,6 +38,10 @@ It is a React App, built with Firebase as back-end. Currently in active developm
 - Adding functions for projects
 	- Add a project by a modal (instead of a new page)
 	- Update the title and acronym of a project
+- Adding user properties
+	- Add user infos (first name, lest name, address, etc)
+	- Update user infos
+- If infos are added by user, infos are displayed in invoices
 
 ## Dependencies
 
