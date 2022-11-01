@@ -43,6 +43,10 @@ It is a React App, built with Firebase as back-end. Currently in active developm
 	- Update user infos
 - If infos are added by user, infos are displayed in invoices
 
+### 0.1.5
+- Adding function to export counters to csv
+- Adding function to export invoice to pdf
+
 ## Dependencies
 
 This app is built on :
