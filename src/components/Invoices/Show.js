@@ -6,6 +6,8 @@ import { db } from "../../config/firebase";
 import { collection, query, where, getDocs, doc, deleteDoc } from "firebase/firestore";
 import { useAuth } from "../../contexts/AuthContext";
 
+import PDFInvoice from "./PDFInvoice";
+
 function Show() {
   const { currentUser } = useAuth();
   const navigate = useNavigate();
@@ -75,6 +77,10 @@ function Show() {
 
   return (
     <>
+    { 
+      user && invoice && products &&
+      <PDFInvoice user={ user } currentUser={ currentUser } invoice={ invoice } products={ products} />
+    }
     {
       invoice &&
       <>
