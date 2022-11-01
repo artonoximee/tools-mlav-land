@@ -3,6 +3,7 @@ import React, { useState, useEffect} from "react";
 import { db } from "../../config/firebase";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { useAuth } from "../../contexts/AuthContext";
+import { CSVLink } from "react-csv";
 
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 
@@ -75,6 +76,17 @@ function List() {
     setOpenCreateModal(true);
   }
 
+  function csvData(projects, counters) {
+    let csvData = []
+    counters.forEach(counter => {
+      let project = projects.filter(project => project.id === counter.projectId)
+      if (project.length > 0) {
+        csvData.push([counter.id, project[0].acronym, project[0].name, counter.createdAt, counter.time])
+      }
+    })
+    return csvData
+  }
+
   return (
     <>
       <h4>⏱️ Compteurs</h4>
@@ -85,7 +97,7 @@ function List() {
         projects && counters &&
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
-            data={formatDataForChart(projects, counters)}
+            data={ formatDataForChart(projects, counters) }
             margin={{
               top: 0,
               right: 0,
@@ -116,6 +128,18 @@ function List() {
           }
         </tbody>
       </table>
+
+      {
+        projects && counters &&
+        <CSVLink 
+          data={ csvData(projects, counters) }
+          filename={"counters-export.csv"} 
+          className="btn btn-outline-secondary mt-3 float-end"
+        >
+          🖨️
+          Export CSV
+        </CSVLink>
+      }
 
       { openCreateModal && (
         <CreateModal setOpenCreateModal={ setOpenCreateModal } setReload={ setReload } />
