@@ -29,13 +29,11 @@ function ListItem(props) {
     <div className="card text-bg-dark border-secondary mb-4">
       <div className="card-body">
         <div className="row mt-1 mb-1">
-          <div className="col-1">
+          <div className="col-2">
               <span className="d-inline-flex px-2 py-1 fw-semibold text-primary bg-primary bg-opacity-10 border border-primary border-opacity-10 rounded-2" aria-disabled="true">
               { currentProject && currentProject.acronym }
               </span>
-          </div>
-          <div className="col-2">
-              <span className="d-inline-flex px-2 py-1 fw-semibold text-primary bg-primary bg-opacity-10 border border-primary border-opacity-10 rounded-2" aria-disabled="true">
+              <span className="d-inline-flex px-2 py-1 ms-2 fw-semibold text-primary bg-primary bg-opacity-10 border border-primary border-opacity-10 rounded-2" aria-disabled="true">
               { transfer.createdAt.substring(8,10) }/{ transfer.createdAt.substring(5,7) }/{ transfer.createdAt.substring(0,4) }
               </span>
           </div>

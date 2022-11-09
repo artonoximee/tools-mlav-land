@@ -5,6 +5,7 @@ import { useAuth } from "../../contexts/AuthContext";
 
 import CreateModal from "./CreateModal";
 import ListItem from "./ListItem";
+import Search from "./Search";
 import sortByCreationDate from "../../helpers/sortByCreationDate";
 
 function List() {
@@ -56,6 +57,10 @@ function List() {
         </div>
       </div>
 
+      {
+        projects && <Search projects={ projects }/>
+      }
+      
       {
         transfers &&
         transfers.map(transfer => <ListItem key={ transfer.id } transfer={ transfer } projects={ projects } />)
