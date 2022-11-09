@@ -12,6 +12,32 @@ body {
   margin-bottom: 12vh !important;
 }
 
+.logo-emoji {
+  position: relative;
+  top: 1px;
+}
+
+.logo-text {
+  position: relative;
+  top: 3px;
+}
+
+.logo-version {
+  position: relative;
+  top: -11px;
+  left: -5px;
+  font-size: 6px;
+}
+
+td {
+
+}
+
+@media (min-width: 768px) {
+  .navbar-toggler {
+    display: none;
+  }
+}
 /* Backdrop for modals */
 
 .backdrop {

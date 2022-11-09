@@ -23,6 +23,22 @@ function App() {
   return (
     <AuthProvider>
       <Router>
+      
+      <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 border-bottom border-secondary"> 
+        <div className="p-2 ps-3 pb-3 fs-4">
+          <span className="badge rounded-pill text-bg-primary logo-emoji">🛠️</span>
+          <span className="ps-2 fw-bold text-light logo-text">mlavTools</span>
+          <span className="badge rounded-pill text-bg-danger logo-version">v0.1.5</span>
+        </div>
+
+        <div className="pe-3">
+          <button className="navbar-toggler collapsed border-0" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"></span>
+          </button>
+        </div>
+      </header>
+
+
         <div className="container-fluid text-bg-dark">
           <Routes>
             <Route exact path="/" element={ <Login /> } />

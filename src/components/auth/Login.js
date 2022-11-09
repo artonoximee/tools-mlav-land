@@ -30,9 +30,7 @@ function Login() {
 
   return (
     <div className="row justify-content-center top-margin">
-      <div className="col-lg-3 col-md-12">
-        <h1 className="text-center"><span className="badge rounded-pill text-bg-primary">🛠️</span></h1>
-        <h3 className="mb-5 text-center">Connexion</h3>
+      <div className="col-lg-3 col-md-12 mt-5">
 
         { error && <div className="alert alert-danger text-danger bg-dark border-danger mt-1">💥 { error }</div> }
 
