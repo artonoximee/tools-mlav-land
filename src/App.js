@@ -17,6 +17,7 @@ import ShowInvoice from "./components/Invoices/Show";
 import Counters from "./components/Counters/List";
 import CreateCounter from "./components/Counters/Create";
 import ShowCounters from "./components/Counters/Show";
+import Transfers from "./components/Transfers/List";
 import ShowUser from "./components/Users/Show";
 
 function App() {
@@ -24,7 +25,7 @@ function App() {
     <AuthProvider>
       <Router>
       
-      <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 border-bottom border-secondary"> 
+      <header className="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 border-bottom border-secondary"> 
         <div className="p-2 ps-3 pb-3 fs-4">
           <span className="badge rounded-pill text-bg-primary logo-emoji">🛠️</span>
           <span className="ps-2 fw-bold text-light logo-text">mlavTools</span>
@@ -52,6 +53,7 @@ function App() {
             <Route path="/counters" element={ <PrivateRoute><Sidebar><Counters /></Sidebar></PrivateRoute> } />
             <Route path="/counters/new" element={ <PrivateRoute><Sidebar><CreateCounter /></Sidebar></PrivateRoute> } />
             <Route path="/counters/:id" element={ <PrivateRoute><Sidebar><ShowCounters /></Sidebar></PrivateRoute> } />
+            <Route path="/transfers" element={ <PrivateRoute><Sidebar><Transfers /></Sidebar></PrivateRoute> } />
             <Route path="/users/:id" element={ <PrivateRoute><Sidebar><ShowUser /></Sidebar></PrivateRoute> } />
             <Route path="*" element={ <h1>Error</h1> } />
           </Routes>

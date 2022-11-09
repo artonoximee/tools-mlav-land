@@ -33,13 +33,12 @@ function CreateModal(props) {
     setProjects(arr);
   }
 
-  async function createCounter(data) {
-    const counterUid = v4();
+  async function createTransfer(data) {
+    const transferUid = v4();
     const createdAt = new Date().toISOString();
-    await setDoc(doc(db, "counters", counterUid), {
-      id: counterUid, 
+    await setDoc(doc(db, "transfers", transferUid), {
+      id: transferUid, 
       userId: currentUser.uid,
-      time: data.time.replace(",", "."),
       projectId: data.project,
       createdAt: createdAt
     });
@@ -50,22 +49,22 @@ function CreateModal(props) {
   return (
     <div className="backdrop" onClick={ handleClick }>
       <div className="card text-bg-dark border-secondary p-3">
-        <h4 className="">Ajouter un compteur</h4>
+        <h4 className="">Ajouter un fichier</h4>
         <hr />
           <form>
             <div className="row mt-3">
-              <div className="col-4">
-                <label htmlFor="time" className="form-label">Temps passé (h)</label>
+              <div className="col-12">
+                <label htmlFor="name" className="form-label">Nom du fichier</label>
                 <input 
                   type="text"
-                  id="time"
-                  className={ `form-control text-bg-dark ${ errors.time && "is-invalid border-danger" }` }
+                  id="name"
+                  className={ `form-control text-bg-dark ${ errors.name && "is-invalid border-danger" }` }
                   placeholder="4"
-                  { ...register("time", { required: true }) }
+                  { ...register("name", { required: true }) }
                 />
-                { errors.time && <div className="form-text text-danger">Veuillez renseigner un temps</div> }
+                { errors.time && <div className="form-text text-danger">Veuillez renseigner un nom de fichier</div> }
               </div>
-              <div className="col-8">
+              <div className="col-12 mt-3">
                 <label className="form-label">Projet</label>
                 <select 
                   {...register("project", { required: true })}
@@ -76,15 +75,24 @@ function CreateModal(props) {
                   { 
                     projects && 
                     projects.map(project => (
-                      <option key={ project.id } value={ project.id } selected={ project.id === currentProject ? "true" : "" }>{ project.acronym } - { project.name }</option>
+                      <option key={ project.id } value={ project.id }>{ project.acronym } - { project.name }</option>
                     ))
                   }
                 </select>
                 { errors.project && <div className="fs-6 text-danger">Veuillez choisir un projet</div> }
               </div>
+              <div className="col-12 mt-3">
+              <label className="form-label">Fichier</label>
+              <input 
+                type="file"
+                { ...register("file", { required: true }) }
+                className={`form-control text-bg-dark border-secondary ${ errors.file && "is-invalid" }`}
+              />
+              { errors.file && <div className="fs-6 text-danger">Veuillez choisir un fichier</div> }
+              </div>
             </div>
 
-            <button className="btn btn-primary w-100 mt-4 mb-2" onClick={ handleSubmit(createCounter) } type="submit">Ajouter un nouveau temps</button>
+            <button className="btn btn-primary w-100 mt-4 mb-2" onClick={ handleSubmit(createTransfer) } type="submit">Ajouter un nouveau fichier</button>
           </form>
       </div>
     </div>
