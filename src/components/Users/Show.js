@@ -40,8 +40,6 @@ function Show() {
 
   return (
     <>
-      <h4>🧑‍💻 Compte</h4>
-      <hr />
       {
         !user &&
         <button onClick={ handleClickCreate } className="btn btn-outline-primary w-100 mb-5">Ajouter des informations</button>
@@ -57,7 +55,7 @@ function Show() {
           <div className="card-body">
             <div className="row">
               <div className="col-1">
-                <h1>🧑‍💻</h1>
+                <h1><i className="fa-solid fa-user"></i></h1>
               </div>
               <div className="col-11">
                 {

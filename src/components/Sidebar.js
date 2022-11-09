@@ -31,31 +31,31 @@ function Sidebar({ children }) {
           <ul className="nav nav-pills flex-column mb-auto">
             <li className="nav-item">
               <Link to="/dashboard" onClick={ closeSidebar } className={ `nav-link ${ location.pathname.includes("dashboard") ? "active" : "text-white" }` } aria-current="page">
-                🏠
+                <i className="fa-solid fa-house me-2"></i>
                 Dashboard
               </Link>
             </li>
             <li>
               <Link to="/projects" onClick={ closeSidebar } className={`nav-link ${ location.pathname.includes("projects") ? "active" : "text-white" }`}>
-                🏗️
+                <i className="fa-solid fa-folder me-2"></i>
                 Projets
               </Link>
             </li>
             <li>
               <Link to="/counters" onClick={ closeSidebar } className={`nav-link ${ location.pathname.includes("counters") ? "active" : "text-white" }`}>
-                ⏱️
+                <i className="fa-solid fa-gauge me-2"></i>
                 Compteurs
               </Link>
             </li>
             <li>
               <Link to="/quotes" onClick={ closeSidebar } className={`nav-link ${ location.pathname.includes("quotes") ? "active" : "text-white" }`}>
-                💼
+                <i className="fa-solid fa-briefcase me-2"></i>
                 Devis
               </Link>
             </li>
             <li>
               <Link to="/invoices" onClick={ closeSidebar } className={`nav-link ${ location.pathname.includes("invoices") ? "active" : "text-white" }`}>
-                💶
+                <i className="fa-solid fa-file-invoice me-2"></i>
                 Factures
               </Link>
             </li>
@@ -66,13 +66,13 @@ function Sidebar({ children }) {
           <ul className="nav nav-pills flex-column">
           <li className="nav-item">
               <Link to={ `/users/${ currentUser.uid }` } onClick={ closeSidebar } className="nav-link text-white">
-                🧑‍💻 
+                <i className="fa-solid fa-user me-2"></i>
                 Compte
               </Link>
             </li>
             <li className="nav-item">
               <Link onClick={handleLogOut} className="nav-link text-white">
-                🚪
+                <i className="fa-solid fa-right-from-bracket me-2"></i>
                 Déconnexion
               </Link>
             </li>
