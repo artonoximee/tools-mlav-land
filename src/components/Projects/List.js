@@ -42,22 +42,18 @@ function List() {
     <>
       <button onClick={ handleClickCreate } className="btn btn-outline-primary w-100 mb-5">Ajouter un nouveau projet</button>
 
-      <table className="table table-dark">
-        <tbody>
-          {
-            projects &&
-            projects.map((project) => (
-            <ListItem 
-              key={ project.id } 
-              project={ project }
-              setOpenUpdateModal={ setOpenUpdateModal }
-              setOpenDeleteModal={ setOpenDeleteModal }
-              setSelectedProject={ setSelectedProject }
-            />
-            ))
-          }
-        </tbody>
-      </table>
+      {
+        projects &&
+        projects.map((project) => (
+        <ListItem 
+          key={ project.id } 
+          project={ project }
+          setOpenUpdateModal={ setOpenUpdateModal }
+          setOpenDeleteModal={ setOpenDeleteModal }
+          setSelectedProject={ setSelectedProject }
+        />
+        ))
+      }
 
       { openCreateModal && (
         <CreateModal setOpenCreateModal={ setOpenCreateModal } setReload={ setReload } />

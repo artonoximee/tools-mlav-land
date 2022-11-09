@@ -31,17 +31,10 @@ function List() {
     <>
       <Link to="/invoices/new" className="btn btn-outline-primary w-100 mb-5">Créer une nouvelle facture</Link>
 
-      {/* <div className="list-group">
-        {
-          invoices &&
-          invoices.map((invoice) => <ListItem key={ invoice.id } invoice={ invoice } />)
-        }
-      </div> */}
-
-        {
-          invoices &&
-          invoices.map((invoice) => <ListItem key={ invoice.id } invoice={ invoice } />)
-        }
+      {
+        invoices &&
+        invoices.map((invoice) => <ListItem key={ invoice.id } invoice={ invoice } />)
+      }
     </>
   )
 }
