@@ -2,16 +2,46 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function ListItem(props) {
-  const { id, name, createdAt } = props.invoice
+  const invoice = props.invoice
+
+  const formatter = new Intl.NumberFormat('fr-FR', {
+    style: 'currency',
+    currency: 'EUR',
+  });
 
   return (
-    <Link to={`/invoices/${id}`} className="list-group-item list-group-item-action text-bg-dark border-secondary p-3">
-      <div className="d-flex w-100 justify-content-between">
-        <h5>{ name }</h5>
-        <small className="badge rounded-pill text-bg-primary h-50">#{ id.substring(0,7) }</small>
+    <div className="card text-bg-dark border-secondary mb-4">
+      <div className="card-body">
+        <div className="row mt-1">
+          <div className="col">
+              <span className="d-inline-flex px-2 py-1 fw-semibold text-primary bg-primary bg-opacity-10 border border-primary border-opacity-10 rounded-2" aria-disabled="true">
+                { invoice.createdAt.substring(8,10) }/{ invoice.createdAt.substring(5,7) }/{ invoice.createdAt.substring(0,4) }
+              </span>
+          </div>
+          <div className="col text-center">
+            <span className="d-inline-flex px-2 py-1 fw-semibold text-primary bg-primary bg-opacity-10 border border-primary border-opacity-10 rounded-2" aria-disabled="true">
+              { formatter.format(invoice.total) }
+            </span>
+            <br />
+            <small className="text-muted">{ invoice.name }</small>
+          </div>
+          <div className="col text-end">
+            <Link to={`/invoices/${invoice.id}`} className="btn btn-sm btn-outline-primary me-2 text-primary bg-primary bg-opacity-10 border border-primary border-opacity-10 rounded-2" type="button">
+              <i className="fa-solid fa-file-pdf"></i>
+            </Link>
+            <span className="dropdown">
+              <button className="btn btn-sm btn-outline-primary text-primary bg-primary bg-opacity-10 border border-primary border-opacity-10 rounded-2 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i className="fa-solid fa-gear"></i>
+              </button>
+              <ul className="dropdown-menu dropdown-menu-dark">
+                <li><a className="dropdown-item" href="#">Modifier</a></li>
+                <li><a className="dropdown-item" href="#">Supprimer</a></li>
+              </ul>
+            </span>
+          </div>
+        </div>
       </div>
-      <small className="badge rounded-pill text-bg-secondary">{ createdAt.substring(8,10) }/{ createdAt.substring(5,7) }/{ createdAt.substring(0,4) }</small>
-    </Link>
+    </div>
   )
 }
 

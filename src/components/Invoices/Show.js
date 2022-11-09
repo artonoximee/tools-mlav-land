@@ -62,11 +62,6 @@ function Show() {
     setProducts(arr);
   }
 
-  const formatter = new Intl.NumberFormat('fr-FR', {
-    style: 'currency',
-    currency: 'EUR',
-  });
-
   async function deleteInvoice(data) {
     if (data.delete === "EFFACER") {
       const invoice = doc(db, "invoices", data.invoiceId);

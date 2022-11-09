@@ -40,37 +40,7 @@ function List() {
 
         {
           invoices &&
-          invoices.map((invoice) => 
-          <div class="card text-bg-dark border-secondary mb-4">
-            <div class="card-body">
-              <div className="row mt-2">
-                <div className="col">
-                  <h5>
-                  { invoice.name }
-                    <small className="d-inline-flex px-2 py-1 mx-2 fw-semibold text-primary bg-primary bg-opacity-10 border border-primary border-opacity-10 rounded-pill" aria-disabled="true">
-                      { invoice.createdAt.substring(8,10) }/{ invoice.createdAt.substring(5,7) }/{ invoice.createdAt.substring(0,4) }
-                    </small>
-                    
-                  </h5>
-                </div>
-                <div className="col text-end">
-                <div class="dropdown">
-                    <button class="btn btn-sm btn-outline-primary text-primary bg-primary bg-opacity-10 border border-primary border-opacity-10 rounded-pill dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      ⚙️
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-dark">
-                      <li><a class="dropdown-item active" href="#">Action</a></li>
-                      <li><a class="dropdown-item" href="#">Another action</a></li>
-                      <li><a class="dropdown-item" href="#">Something else here</a></li>
-                      <li><hr class="dropdown-divider" /></li>
-                      <li><a class="dropdown-item" href="#">Separated link</a></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          )
+          invoices.map((invoice) => <ListItem key={ invoice.id } invoice={ invoice } />)
         }
     </>
   )
