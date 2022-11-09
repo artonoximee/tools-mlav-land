@@ -3,6 +3,8 @@ import { useAuth } from "../../contexts/AuthContext";
 import { useForm } from "react-hook-form";
 import { db } from "../../config/firebase";
 import { collection, query, where, getDocs, doc, setDoc } from "firebase/firestore";
+import { storage } from "../../config/firebase";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { v4 } from "uuid";
 import sortByCreationDate from "../../helpers/sortByCreationDate";
 
@@ -33,13 +35,36 @@ function CreateModal(props) {
     setProjects(arr);
   }
 
-  async function createTransfer(data) {
-    const transferUid = v4();
+  function onSubmit(data) {
+    const uid = v4();
+    const storageRef = ref(storage, `gs://mlavtools-dev.appspot.com/files/${ uid }`);
+    const uploadTask = uploadBytesResumable(storageRef, data.file[0]);
+
+    uploadTask.on('state_changed', 
+      (snapshot) => {
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log('Upload is ' + progress + '% done');
+      }, 
+      (error) => {
+        console.log(error);
+      }, 
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          console.log('File available at', downloadURL);
+          createTransfer(uid, data.name, data.project, downloadURL);
+        });
+      }
+    );
+  }
+
+  async function createTransfer(id, name, project, fileUrl) {
     const createdAt = new Date().toISOString();
-    await setDoc(doc(db, "transfers", transferUid), {
-      id: transferUid, 
+    await setDoc(doc(db, "transfers", id), {
+      id: id, 
+      name: name,
       userId: currentUser.uid,
-      projectId: data.project,
+      projectId: project,
+      fileUrl: fileUrl,
       createdAt: createdAt
     });
     setOpenCreateModal(false);
@@ -92,7 +117,7 @@ function CreateModal(props) {
               </div>
             </div>
 
-            <button className="btn btn-primary w-100 mt-4 mb-2" onClick={ handleSubmit(createTransfer) } type="submit">Ajouter un nouveau fichier</button>
+            <button className="btn btn-primary w-100 mt-4 mb-2" onClick={ handleSubmit(onSubmit) } type="submit">Ajouter un nouveau fichier</button>
           </form>
       </div>
     </div>
