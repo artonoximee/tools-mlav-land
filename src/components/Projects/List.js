@@ -40,8 +40,6 @@ function List() {
 
   return (
     <>
-      <h4>🏗️ Projets</h4>
-      <hr />
       <button onClick={ handleClickCreate } className="btn btn-outline-primary w-100 mb-5">Ajouter un nouveau projet</button>
 
       <table className="table table-dark">

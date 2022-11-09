@@ -89,8 +89,6 @@ function List() {
 
   return (
     <>
-      <h4>⏱️ Compteurs</h4>
-      <hr />
       <button onClick={ handleClickCreate } className="btn btn-outline-primary w-100 mb-5">Ajouter un nouveau temps</button>
       <div className="h-50">
       {

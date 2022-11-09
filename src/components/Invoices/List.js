@@ -29,8 +29,6 @@ function List() {
 
   return (
     <>
-      <h4>💶 Factures</h4>
-      <hr />
       <Link to="/invoices/new" className="btn btn-outline-primary w-100 mb-5">Créer une nouvelle facture</Link>
 
       <div className="list-group">
