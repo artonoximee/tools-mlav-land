@@ -48,6 +48,12 @@ function Sidebar({ children }) {
               </Link>
             </li>
             <li>
+              <Link to="/transfers" onClick={ closeSidebar } className={`nav-link ${ location.pathname.includes("transfers") ? "active" : "text-white" }`}>
+              <i className="fa-solid fa-cloud-arrow-up me-2"></i>
+                Transferts
+              </Link>
+            </li>
+            <li>
               <Link to="/quotes" onClick={ closeSidebar } className={`nav-link ${ location.pathname.includes("quotes") ? "active" : "text-white" }`}>
                 <i className="fa-solid fa-briefcase me-2"></i>
                 Devis
