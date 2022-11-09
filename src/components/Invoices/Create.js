@@ -79,6 +79,10 @@ function Create() {
   async function createInvoice(data) {
     const invoiceUid = v4();
     const createdAt = new Date().toISOString();
+    let total = 0;
+    for (let i = 0; i < productsCount; i++) {
+      total += Math.round(Number(data["productPrice-" + i].replace(",", ".")) * Number(data["productQuantity-" + i].replace(",", ".")) * 100) / 100
+    }
     await setDoc(doc(db, "invoices", invoiceUid), {
       id: invoiceUid, 
       userId: currentUser.uid,
@@ -89,6 +93,7 @@ function Create() {
       city: data.city,
       email: data.email,
       telephone: data.telephone,
+      total: total,
       createdAt: createdAt
     });
     for (let i = 0; i < productsCount; i++) {
@@ -105,10 +110,8 @@ function Create() {
 
   return (
     <>
-      <h4>✏️ Créer une nouvelle facture</h4>
-      <hr />
       <form>
-        <h4 className="mt-5 mb-3">Client</h4>
+        <h4 className="mb-3">Client</h4>
         <hr />
         <label htmlFor="name" className="form-label">Nom de l'entité</label>
         <input 
