@@ -18,6 +18,7 @@ import Counters from "./components/Counters/List";
 import CreateCounter from "./components/Counters/Create";
 import ShowCounters from "./components/Counters/Show";
 import Transfers from "./components/Transfers/List";
+import Files from "./components/Transfers/Public";
 import ShowUser from "./components/Users/Show";
 
 function App() {
@@ -54,6 +55,7 @@ function App() {
             <Route path="/counters/new" element={ <PrivateRoute><Sidebar><CreateCounter /></Sidebar></PrivateRoute> } />
             <Route path="/counters/:id" element={ <PrivateRoute><Sidebar><ShowCounters /></Sidebar></PrivateRoute> } />
             <Route path="/transfers" element={ <PrivateRoute><Sidebar><Transfers /></Sidebar></PrivateRoute> } />
+            <Route path="/files" element={ <Files /> } />
             <Route path="/users/:id" element={ <PrivateRoute><Sidebar><ShowUser /></Sidebar></PrivateRoute> } />
             <Route path="*" element={ <h1>Error</h1> } />
           </Routes>
