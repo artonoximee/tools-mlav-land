@@ -31,7 +31,7 @@ function ListItem(props) {
             </span>
           </div>
           <div className="col-2 text-end">
-            <a href={`${transfer.fileUrl}`} className="btn btn-sm btn-outline-primary me-2 text-primary bg-primary bg-opacity-10 border border-primary border-opacity-10 rounded-2" type="button">
+            <a download href={`${transfer.fileUrl}`} className="btn btn-sm btn-outline-primary me-2 text-primary bg-primary bg-opacity-10 border border-primary border-opacity-10 rounded-2" type="button">
               <i className="fa-solid fa-file"></i>
             </a>
           </div>
