@@ -51,13 +51,13 @@ function CreateModal(props) {
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           console.log('File available at', downloadURL);
-          createTransfer(uid, data.name, data.project, downloadURL);
+          createTransfer(uid, data.name, data.project, downloadURL, data.version, data.phase);
         });
       }
     );
   }
 
-  async function createTransfer(id, name, project, fileUrl) {
+  async function createTransfer(id, name, project, fileUrl, version, phase) {
     const createdAt = new Date().toISOString();
     await setDoc(doc(db, "transfers", id), {
       id: id, 
@@ -65,6 +65,8 @@ function CreateModal(props) {
       userId: currentUser.uid,
       projectId: project,
       fileUrl: fileUrl,
+      version: version ? version : "",
+      phase: phase ? phase : "",
       createdAt: createdAt
     });
     setOpenCreateModal(false);
@@ -84,10 +86,10 @@ function CreateModal(props) {
                   type="text"
                   id="name"
                   className={ `form-control text-bg-dark ${ errors.name && "is-invalid border-danger" }` }
-                  placeholder="4"
+                  placeholder="Plan masse"
                   { ...register("name", { required: true }) }
                 />
-                { errors.time && <div className="form-text text-danger">Veuillez renseigner un nom de fichier</div> }
+                { errors.name && <div className="form-text text-danger">Veuillez renseigner un nom de fichier</div> }
               </div>
               <div className="col-12 mt-3">
                 <label className="form-label">Projet</label>
@@ -104,16 +106,38 @@ function CreateModal(props) {
                     ))
                   }
                 </select>
-                { errors.project && <div className="fs-6 text-danger">Veuillez choisir un projet</div> }
+                { errors.project && <div className="form-text text-danger">Veuillez choisir un projet</div> }
               </div>
               <div className="col-12 mt-3">
               <label className="form-label">Fichier</label>
               <input 
                 type="file"
                 { ...register("file", { required: true }) }
-                className={`form-control text-bg-dark border-secondary ${ errors.file && "is-invalid" }`}
+                className={`form-control text-bg-dark border-light ${ errors.file && "is-invalid" }`}
               />
-              { errors.file && <div className="fs-6 text-danger">Veuillez choisir un fichier</div> }
+              { errors.file && <div className="form-text text-danger">Veuillez choisir un fichier</div> }
+              </div>
+              <div className="col-6 mt-3">
+                <label htmlFor="version" className="form-label">Indice</label>
+                <input 
+                  type="text"
+                  id="version"
+                  className={ `form-control text-bg-dark ${ errors.version && "is-invalid border-danger" }` }
+                  placeholder="A"
+                  { ...register("version") }
+                />
+                { errors.version && <div className="form-text text-danger">Veuillez renseigner un indice de version</div> }
+              </div>
+              <div className="col-6 mt-3">
+                <label htmlFor="phase" className="form-label">Phase</label>
+                <input 
+                  type="text"
+                  id="phase"
+                  className={ `form-control text-bg-dark ${ errors.phase && "is-invalid border-danger" }` }
+                  placeholder="APS"
+                  { ...register("phase") }
+                />
+                { errors.phase && <div className="form-text text-danger">Veuillez renseigner une phase</div> }
               </div>
             </div>
 
