@@ -4,6 +4,7 @@ import { useAuth } from "../../contexts/AuthContext";
 import { useForm } from "react-hook-form";
 import { db } from "../../config/firebase";
 import { collection, query, where, getDocs } from "firebase/firestore";
+import copy from "copy-to-clipboard";
 import sortByCreationDate from "../../helpers/sortByCreationDate";
 
 function InviteModal(props) {
@@ -11,6 +12,7 @@ function InviteModal(props) {
   const { currentUser } = useAuth();
   const { setOpenInviteModal } = props;
   const [projects, setProjects] = useState();
+  const [copied, setCopied] = useState(false);
 
   const handleClick = (e) => {
     if (e.target.classList.contains('backdrop')) {
@@ -31,6 +33,12 @@ function InviteModal(props) {
     });
     sortByCreationDate(arr);
     setProjects(arr);
+  }
+
+  function copyInvite(data) {
+    const inviteMessage=`Vous êtes invité·e à consulter des fichiers sur la plateforme mlavTools. Pour y accéder, suivez le lien suivant : https://tools.mlav.land/files et entrez le code suivant : ${data.project}`
+    copy(inviteMessage);
+    setCopied(true);
   }
 
   return (
@@ -59,7 +67,8 @@ function InviteModal(props) {
               </div>
             </div>
 
-            <button className="btn btn-primary w-100 mt-4 mb-2" onClick={ handleSubmit() } type="submit">Copier l'invitation</button>
+            <button className="btn btn-primary w-100 mt-4 mb-2" onClick={ handleSubmit(copyInvite) } type="submit">Copier l'invitation</button>
+            { copied && <small className="text-center text-muted">Invitation copiée</small> }
           </form>
       </div>
     </div>
