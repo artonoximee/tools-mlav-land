@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import { useForm } from "react-hook-form";
@@ -11,7 +12,7 @@ import sortByCreationDate from "../../helpers/sortByCreationDate";
 function CreateModal(props) {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const { currentUser } = useAuth();
-  const { setOpenCreateModal, setReload, currentProject } = props;
+  const { setOpenCreateModal, setReload } = props;
   const [projects, setProjects] = useState();
 
   const handleClick = (e) => {

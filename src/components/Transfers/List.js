@@ -1,9 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import { db } from "../../config/firebase";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { useAuth } from "../../contexts/AuthContext";
 
 import CreateModal from "./CreateModal";
+import InviteModal from "./InviteModal";
 import ListItem from "./ListItem";
 import Search from "./Search";
 import sortByCreationDate from "../../helpers/sortByCreationDate";
@@ -13,6 +15,7 @@ function List() {
   const [projects, setProjects] = useState();
   const [transfers, setTransfers] = useState();
   const [openCreateModal, setOpenCreateModal] = useState(false);
+  const [openInviteModal, setOpenInviteModal] = useState(false);
   const [reload, setReload] = useState();
   const [filteredTransfers, setFilteredTransfers] = useState();
   const [selectedProject, setSelectedProject] = useState("");
@@ -49,6 +52,10 @@ function List() {
     setOpenCreateModal(true);
   }
 
+  function handleClickInvite() {
+    setOpenInviteModal(true);
+  }
+
   function handleChange(e) {
     const { value } = e.target;
     setSelectedProject(value);
@@ -61,7 +68,7 @@ function List() {
           <button onClick={ handleClickCreate } className="btn btn-outline-primary w-100 mb-5">Ajouter un nouveau fichier</button>
         </div>
         <div className="col">
-          <button onClick={ null } className="btn btn-outline-primary w-100 mb-5">Générer une invitation</button>
+          <button onClick={ handleClickInvite } className="btn btn-outline-primary w-100 mb-5">Générer une invitation</button>
         </div>
       </div>
 
@@ -82,6 +89,10 @@ function List() {
       
       { openCreateModal && (
         <CreateModal setOpenCreateModal={ setOpenCreateModal } setReload={ setReload } />
+      )}
+
+      { openInviteModal && (
+        <InviteModal setOpenInviteModal={ setOpenInviteModal } />
       )}
     </>
   )
