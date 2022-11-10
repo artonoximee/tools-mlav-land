@@ -14,6 +14,8 @@ function List() {
   const [transfers, setTransfers] = useState();
   const [openCreateModal, setOpenCreateModal] = useState(false);
   const [reload, setReload] = useState();
+  const [filteredTransfers, setFilteredTransfers] = useState();
+  const [selectedProject, setSelectedProject] = useState("");
 
   useEffect(() => {
     getProjects()
@@ -40,10 +42,16 @@ function List() {
     });
     sortByCreationDate(arr);
     setTransfers(arr);
+    setFilteredTransfers(arr);
   }
 
   function handleClickCreate() {
     setOpenCreateModal(true);
+  }
+
+  function handleChange(e) {
+    const { value } = e.target;
+    setSelectedProject(value);
   }
 
   return (
@@ -58,12 +66,18 @@ function List() {
       </div>
 
       {
-        projects && <Search projects={ projects }/>
+        projects && <Search projects={ projects } handleChange={ (e) => handleChange(e) }/>
       }
       
       {
-        transfers &&
-        transfers.map(transfer => <ListItem key={ transfer.id } transfer={ transfer } projects={ projects } />)
+        filteredTransfers &&
+        filteredTransfers.map(transfer => {
+          if (selectedProject === transfer.projectId) {
+            return <ListItem key={ transfer.id } transfer={ transfer } projects={ projects } />
+          } else if (selectedProject === "") {
+            return <ListItem key={ transfer.id } transfer={ transfer } projects={ projects } />
+          }
+        })
       }
       
       { openCreateModal && (

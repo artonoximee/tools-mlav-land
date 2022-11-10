@@ -29,7 +29,7 @@ function ListItem(props) {
     <div className="card text-bg-dark border-secondary mb-4">
       <div className="card-body">
         <div className="row mt-1 mb-1">
-          <div className="col-2">
+          <div className="col-3">
               <span className="d-inline-flex px-2 py-1 fw-semibold text-primary bg-primary bg-opacity-10 border border-primary border-opacity-10 rounded-2" aria-disabled="true">
               { currentProject && currentProject.acronym }
               </span>
