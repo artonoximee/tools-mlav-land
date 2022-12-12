@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import { db } from "../../config/firebase";
 import { collection, query, where, getDocs } from "firebase/firestore";
 
+import sortByDay from "../../helpers/sortByDay";
+
 import CreateModal from "./CreateModal";
 import DeleteModal from "./DeleteModal";
 
@@ -38,6 +40,7 @@ function Show() {
     querySnapshot.forEach((doc) => {
       arr.push(doc.data())
     });
+    sortByDay(arr);
     setCounters(arr);
   }
 
@@ -62,9 +65,9 @@ function Show() {
       <table className="table table-dark">
         <thead>
           <tr>
-            <th scope="col">#</th>
+            <th scope="col">Jour</th>
             <th scope="col">Temps</th>
-            <th scope="col">Date d'ajout</th>
+            <th scope="col">Tâche</th>
             <th scope="col"></th>
           </tr>
         </thead>
@@ -73,9 +76,9 @@ function Show() {
             counters &&
             counters.map((counter, index) => (
               <tr key={counter.id}>
-                <th scope="row">{ index }</th>
+                <td>{ counter.day.substring(8,10) }/{ counter.day.substring(5,7) }/{ counter.day.substring(0,4) }</td>
                 <td>{ counter.time }h</td>
-                <td>{ counter.createdAt.substring(8,10) }/{ counter.createdAt.substring(5,7) }/{ counter.createdAt.substring(0,4) }</td>
+                <td>{ counter.task }</td>
                 <td><button onClick={ () => handleClickDelete(counter) } className="btn btn-sm btn-outline-danger fw-bold float-end">X</button></td>
               </tr>
             ))
