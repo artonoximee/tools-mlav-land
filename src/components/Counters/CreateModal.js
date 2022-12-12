@@ -7,10 +7,13 @@ import { v4 } from "uuid";
 import sortByCreationDate from "../../helpers/sortByCreationDate";
 
 function CreateModal(props) {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm({
+    defaultValues: { date: getToday(),  }
+  });
   const { currentUser } = useAuth();
   const { setOpenCreateModal, setReload, currentProject } = props;
   const [projects, setProjects] = useState();
+  
 
   const handleClick = (e) => {
     if (e.target.classList.contains('backdrop')) {
@@ -33,6 +36,18 @@ function CreateModal(props) {
     setProjects(arr);
   }
 
+  function getToday() {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    let mm = today.getMonth() + 1;
+    let dd = today.getDate();
+
+    if (dd < 10) dd = '0' + dd;
+    if (mm < 10) mm = '0' + mm;
+
+    return dd + '/' + mm + '/' + yyyy;
+  }
+
   async function createCounter(data) {
     const counterUid = v4();
     const createdAt = new Date().toISOString();
@@ -41,6 +56,8 @@ function CreateModal(props) {
       userId: currentUser.uid,
       time: data.time.replace(",", "."),
       projectId: data.project,
+      day: data.date,
+      task: data.task,
       createdAt: createdAt
     });
     setOpenCreateModal(false);
@@ -55,7 +72,7 @@ function CreateModal(props) {
           <form>
             <div className="row mt-3">
               <div className="col-4">
-                <label htmlFor="time" className="form-label">Temps passé (h)</label>
+                <label htmlFor="time" className="form-label">Temps (h)</label>
                 <input 
                   type="text"
                   id="time"
@@ -83,6 +100,25 @@ function CreateModal(props) {
                 { errors.project && <div className="fs-6 text-danger">Veuillez choisir un projet</div> }
               </div>
             </div>
+
+            <label htmlFor="date" className="form-label mt-3">Jour</label>
+            <input 
+              type="text"
+              id="date"
+              className={ `form-control text-bg-dark ${ errors.date && "is-invalid border-danger" }` }
+              placeholder="dd/mm/yyyy"
+              { ...register("date", { required: true }) }
+            />
+            { errors.date && <div className="form-text text-danger">Veuillez renseigner un temps</div> }
+
+            <label htmlFor="task" className="form-label mt-3">Tâche réalisée</label>
+            <input 
+              type="text"
+              id="task"
+              className={ `form-control text-bg-dark` }
+              placeholder="Tâche"
+              { ...register("task") }
+            />
 
             <button className="btn btn-primary w-100 mt-4 mb-2" onClick={ handleSubmit(createCounter) } type="submit">Ajouter un nouveau temps</button>
           </form>
