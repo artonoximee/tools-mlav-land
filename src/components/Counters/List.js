@@ -81,7 +81,7 @@ function List() {
     counters.forEach(counter => {
       let project = projects.filter(project => project.id === counter.projectId)
       if (project.length > 0) {
-        csvData.push([counter.id, project[0].acronym, project[0].name, counter.createdAt, counter.time])
+        csvData.push([counter.id, project[0].acronym, project[0].name, counter.day, counter.time, counter.task, counter.createdAt])
       }
     })
     return csvData
