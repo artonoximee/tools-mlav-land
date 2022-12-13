@@ -52,7 +52,6 @@ function CreateModal(props) {
     const counterUid = v4();
     const createdAt = new Date().toISOString();
     const day = new Date(`${data.date.substring(6,10)}-${data.date.substring(3,5)}-${data.date.substring(0,2)}`).toISOString();
-    console.log(day)
     await setDoc(doc(db, "counters", counterUid), {
       id: counterUid, 
       userId: currentUser.uid,

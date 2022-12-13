@@ -74,14 +74,17 @@ function Show() {
         <tbody>
           {
             counters &&
-            counters.map((counter, index) => (
-              <tr key={counter.id}>
-                <td>{ counter.day.substring(8,10) }/{ counter.day.substring(5,7) }/{ counter.day.substring(0,4) }</td>
+            counters.map((counter, index) => {
+              const d = new Date(counter.day);
+              const weekday = ["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"];
+              let day = weekday[d.getDay()];
+              return <tr key={counter.id}>
+                <td>{ day } { counter.day.substring(8,10) }/{ counter.day.substring(5,7) }/{ counter.day.substring(0,4) }</td>
                 <td>{ counter.time }h</td>
                 <td>{ counter.task }</td>
                 <td><button onClick={ () => handleClickDelete(counter) } className="btn btn-sm btn-outline-danger fw-bold float-end">X</button></td>
               </tr>
-            ))
+            })
           }
         </tbody>
       </table>
