@@ -44,6 +44,14 @@ function Show() {
     setCounters(arr);
   }
 
+  function sumHours(counters) {
+    let sumHours = 0;
+    counters.forEach(counter => {
+      sumHours += Number(counter.time)
+    })
+    return Math.round((sumHours / 8) * 10) / 10
+  }
+
   function handleClickCreate() {
     setOpenCreateModal(true);
   }
@@ -62,7 +70,7 @@ function Show() {
       <div className="col-8 text-center">
         {
           project && 
-          <h4><i className="fa-solid fa-gauge me-2"></i>{ project.name }</h4>
+          <h4><i className="fa-solid fa-gauge me-2"></i>{ project.name } <span className="badge rounded-pill text-bg-secondary">{ sumHours(counters) }j</span></h4>
         }
       </div>
       <div className="col-2">
