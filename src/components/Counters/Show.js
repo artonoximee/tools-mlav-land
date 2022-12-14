@@ -59,52 +59,49 @@ function Show() {
       <div className="col-2">
         <Link to="/counters" className="btn btn-outline-primary w-100 mb-5"><i className="fa-solid fa-arrow-left"></i> Retour</Link>
       </div>
-      <div className="col text-center">
+      <div className="col-8 text-center">
         {
           project && 
           <h4><i className="fa-solid fa-gauge me-2"></i>{ project.name }</h4>
         }
       </div>
       <div className="col-2">
-      <button onClick={ handleClickCreate } className="btn btn-outline-primary w-100 mb-5"><i class="fa-solid fa-plus"></i> Ajouter</button>
-
+        <button onClick={ handleClickCreate } className="btn btn-outline-primary w-100 mb-5"><i class="fa-solid fa-plus"></i> Ajouter</button>
       </div>
     </div>
-      
-      <table className="table table-dark">
-        <thead>
-          <tr>
-            <th scope="col">Jour</th>
-            <th scope="col">Temps</th>
-            <th scope="col">Tâche</th>
-            <th scope="col"></th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            counters &&
-            counters.map((counter, index) => {
-              const d = new Date(counter.day);
-              const weekday = ["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"];
-              let day = weekday[d.getDay()];
-              return <tr key={counter.id}>
-                <td>{ day } { counter.day.substring(8,10) }/{ counter.day.substring(5,7) }/{ counter.day.substring(0,4) }</td>
-                <td>{ counter.time }h</td>
-                <td>{ counter.task }</td>
-                <td><button onClick={ () => handleClickDelete(counter) } className="btn btn-sm btn-outline-danger fw-bold float-end">X</button></td>
-              </tr>
-            })
-          }
-        </tbody>
-      </table>
 
-      { openCreateModal && (
-        <CreateModal setOpenCreateModal={ setOpenCreateModal } setReload={ setReload } currentProject={ id } />
-      )}
+    {
+      counters &&
+      counters.map((counter, index) => {
+        const d = new Date(counter.day);
+        const weekday = ["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"];
+        let day = weekday[d.getDay()];
+        return (
+        <div className="card text-bg-dark border-secondary mb-3">
+          <div className="card-body">
+            <div className="row">
+              <div className="col">
+                <h2 className="card-title">{ counter.time }h</h2>
+              </div>
+              <div className="col">
+              <button onClick={ () => handleClickDelete(counter) } className="btn btn-sm btn-outline-danger fw-bold float-end">Supprimer</button>
+              </div>
+            </div>
+            <h6 className="card-subtitle mb-2">{ day } { counter.day.substring(8,10) }/{ counter.day.substring(5,7) }/{ counter.day.substring(0,4) }</h6>
+            <h6 className="card-subtitle mb-2 text-muted">{ counter.task }</h6>
+          </div>
+        </div>
+        )
+      })
+    }
 
-      { openDeleteModal && (
-        <DeleteModal setOpenDeleteModal={ setOpenDeleteModal } selectedCounter={ selectedCounter } setReload={ setReload } />
-      )}
+    { openCreateModal && (
+      <CreateModal setOpenCreateModal={ setOpenCreateModal } setReload={ setReload } currentProject={ id } />
+    )}
+
+    { openDeleteModal && (
+      <DeleteModal setOpenDeleteModal={ setOpenDeleteModal } selectedCounter={ selectedCounter } setReload={ setReload } />
+    )}
     </>
   )
 }
