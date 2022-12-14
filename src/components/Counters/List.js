@@ -134,7 +134,7 @@ function List() {
           filename={"counters-export.csv"} 
           className="btn btn-outline-secondary mt-3 float-end"
         >
-          🖨️
+          <i class="fa-solid fa-file-export"></i> &nbsp;
           Export CSV
         </CSVLink>
       }

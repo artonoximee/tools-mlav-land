@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { db } from "../../config/firebase";
 import { collection, query, where, getDocs } from "firebase/firestore";
 
@@ -55,7 +55,7 @@ function Show() {
 
   return (
     <>
-      
+    <Link to="/counters" className="btn btn-outline-primary mb-4"><i className="fa-solid fa-arrow-left"></i> Retour</Link>
       {
         project && 
         <h4><i className="fa-solid fa-gauge me-2"></i>{ project.name }</h4>
