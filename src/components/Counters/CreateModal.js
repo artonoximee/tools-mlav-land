@@ -87,14 +87,14 @@ function CreateModal(props) {
                 <label className="form-label">Projet</label>
                 <select 
                   {...register("project", { required: true })}
-                  className={`form-control text-bg-dark ${ errors.project && "is-invalid" }`}
+                  className={ `form-control text-bg-dark ${ errors.project && "is-invalid" }` }
                   placeholder="Sélection"
                 >
                   <option value="">Veuillez sélectionner un projet</option>
                   { 
                     projects && 
                     projects.map(project => (
-                      <option key={ project.id } value={ project.id } selected={ project.id === currentProject ? "true" : "" }>{ project.acronym } - { project.name }</option>
+                      <option key={ project.id } value={ project.id } selected={ project.id === currentProject ? true : "" }>{ project.acronym } - { project.name }</option>
                     ))
                   }
                 </select>

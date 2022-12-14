@@ -66,7 +66,7 @@ function Show() {
         }
       </div>
       <div className="col-2">
-        <button onClick={ handleClickCreate } className="btn btn-outline-primary w-100 mb-5"><i class="fa-solid fa-plus"></i> Ajouter</button>
+        <button onClick={ handleClickCreate } className="btn btn-outline-primary w-100 mb-5"><i className="fa-solid fa-plus"></i> Ajouter</button>
       </div>
     </div>
 
@@ -77,7 +77,7 @@ function Show() {
         const weekday = ["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"];
         let day = weekday[d.getDay()];
         return (
-        <div className="card text-bg-dark border-secondary mb-3">
+        <div className="card text-bg-dark border-secondary mb-3" key={ index }>
           <div className="card-body">
             <div className="row">
               <div className="col">
