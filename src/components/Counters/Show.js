@@ -55,13 +55,22 @@ function Show() {
 
   return (
     <>
-    <Link to="/counters" className="btn btn-outline-primary mb-4"><i className="fa-solid fa-arrow-left"></i> Retour</Link>
-      {
-        project && 
-        <h4><i className="fa-solid fa-gauge me-2"></i>{ project.name }</h4>
-      }
-      <hr />
-      <button onClick={ handleClickCreate } className="btn btn-outline-primary w-100 mb-5">Ajouter un nouveau temps</button>
+    <div className="row">
+      <div className="col-2">
+        <Link to="/counters" className="btn btn-outline-primary w-100 mb-5"><i className="fa-solid fa-arrow-left"></i> Retour</Link>
+      </div>
+      <div className="col text-center">
+        {
+          project && 
+          <h4><i className="fa-solid fa-gauge me-2"></i>{ project.name }</h4>
+        }
+      </div>
+      <div className="col-2">
+      <button onClick={ handleClickCreate } className="btn btn-outline-primary w-100 mb-5"><i class="fa-solid fa-plus"></i> Ajouter</button>
+
+      </div>
+    </div>
+      
       <table className="table table-dark">
         <thead>
           <tr>
