@@ -58,7 +58,7 @@ function Show() {
       
       {
         project && 
-        <h4>⏱️ Compteurs - <strong>{ project.name }</strong></h4>
+        <h4><i className="fa-solid fa-gauge me-2"></i>{ project.name }</h4>
       }
       <hr />
       <button onClick={ handleClickCreate } className="btn btn-outline-primary w-100 mb-5">Ajouter un nouveau temps</button>
